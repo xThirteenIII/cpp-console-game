@@ -1,5 +1,6 @@
 #include <map>
 #include <mutex>
+#include <string>
 #ifndef _GAMEMANAGER_H_
 #define _GAMEMANAGER_H_
 
@@ -46,7 +47,7 @@ public:
     static GameManager* GetInstance();
 
     // Initialize game settings and other necessary components
-    void initilize();
+    void initialize();
 
     // Implement game loop, where you switch between game states.
     void runGameLoop();

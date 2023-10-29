@@ -1,5 +1,6 @@
 #include "gameManager.h"
 #include <iostream>
+#include <mutex>
 
 GameManager* GameManager::instance_=nullptr;
 std::mutex GameManager::mutex_;
@@ -11,7 +12,7 @@ GameManager::GameManager(){};
 GameManager::~GameManager(){};
 
 
-void GameManager::initilize(){
+void GameManager::initialize(){
     // implement settings
 }
 
@@ -41,3 +42,20 @@ GameManager* GameManager::GetInstance(){
     return instance_;
 }
 
+void GameManager::setSetting(const std::string &key, const std::string &value){
+    std::lock_guard<std::mutex> lock(mutex_);
+    gameSettings[key] = value;
+}
+
+std::string GameManager::getSetting(const std::string &key){
+    std::lock_guard<std::mutex> lock(mutex_);
+    // this returns an iterator to the element if the key is found, or it returns an iterator equal to gameSettings.end() if the key is not found.
+    auto iterator = gameSettings.find(key);
+    if (iterator != gameSettings.end()){
+        //In a std::map, the first part of the pair is the key, and the second part is the value.
+        //So, this line returns the value corresponding to the found key.
+        return iterator->second;
+    }
+    // Handle the case where the setting doesn't exist
+    return ""; // You can choose a default value or handle it differently
+}
