@@ -1,5 +1,6 @@
 #include "Context.h"
 #include "GameState.h"
+#include "GameOverState.h"
 #include <iostream>
 
 // Constructor
@@ -25,11 +26,19 @@ void Context::setState(GameState* state){
 
 // run is a request from context
 void Context::run(){
-    while (/*game is running*/){
+    while (true){
         // enter() is how the GameState handles the request
         this->currentState_->enter();
         this->currentState_->update();
-        this->currentState_->exit();
-    }
+    
+        // Check for conditions to transition to other states or exit the game
+        if (/* some condition to quit the game */) {
+            setState(new GameOverState());
+        }
+        if (this->currentState_ == ) {
+            break; // Exit the loop when in the GameOverState
+        }
+
+        this->currentState_->exit();}
 }
 

@@ -18,6 +18,7 @@ void GameManager::initialize(){
 
 void GameManager::runGameLoop(){
     // implement game loop
+
 }
 
 // Get the singleton instance
