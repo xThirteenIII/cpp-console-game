@@ -1,4 +1,4 @@
-#include "gameManager.h"
+#include "GameManager.h"
 #include <iostream>
 #include <mutex>
 
