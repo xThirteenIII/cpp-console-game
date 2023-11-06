@@ -21,8 +21,9 @@ void Die(Context* context);
 int main(){
 
 #ifndef _WIN32
-    // Init ncurses library on macOS and Linux
-    initscr();
+    initscr();// Init ncurses library on macOS and Linux
+    noecho(); // Disable echoing for user input
+    curs_set(FALSE); // Hide cursor
 #endif
 
     Context* context = new Context(new MainMenuState);

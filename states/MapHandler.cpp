@@ -35,17 +35,29 @@ void MapHandler::printGameMap(){
         }
         std::cout << std::endl;
     }*/
+    int rows, columns;
+    getmaxyx(stdscr, rows, columns);
+
+    // Create an off-screen buffer
+    WINDOW* offScreenBuffer = newwin(rows, columns, 0, 0);
+
+    wclear(offScreenBuffer);
+
     // Draw the top row of X's
-    mvprintw(0, 0, "###########");
+    mvwprintw(offScreenBuffer,0, 0, "###########");
 
     // Draw the left and right vertical edges
     for (int i = 1; i < 5; i++) {
-        mvprintw(i, 0, "#");
-        mvprintw(i, 10, "#");
+        mvwprintw(offScreenBuffer,i, 0, "#");
+        mvwprintw(offScreenBuffer,i, 10, "#");
     }
 
     // Draw the bottom row of X's
-    mvprintw(5, 0, "###########");}
+    mvwprintw(offScreenBuffer,5, 0, "###########");
+    copywin(offScreenBuffer, stdscr, 0, 0, 0, 0, rows - 1, columns - 1, 0);
+
+}
+
 
 /* Function to initialize the map with X's
 void MapHandler::initializeMap() {
