@@ -5,6 +5,7 @@
 #include "globals.h"
 #include "states/GameState.h"
 #include "states/MainMenuState.h"
+#include "states/MapHandler.h"
 #include "states/PauseState.h"
 #include <curses.h>
 #include <ncurses.h>
@@ -34,8 +35,6 @@ int main(){
     PauseGame(context);
     GoToMainMenu(context);
     Die(context);
-
-    delete context;
 
 #ifndef _WIN32
     endwin(); // Clean up ncurses library
