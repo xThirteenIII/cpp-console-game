@@ -11,5 +11,4 @@ void GameRunningState::update(){
 }
 void GameRunningState::exit(){
     std::cout<< "Exiting Game Running State." << std::endl;
-
 }

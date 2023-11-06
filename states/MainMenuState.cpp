@@ -13,5 +13,4 @@ void MainMenuState::update(){
 
 void MainMenuState::exit(){
     std::cout << "Exiting main menu state." << std::endl;
-    // Cleanup for main menu
 }
