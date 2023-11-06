@@ -4,8 +4,14 @@
 #include "GameRunningState.h"
 #include "MainMenuState.h"
 #include "PauseState.h"
-#include <ncurses.h>
 #include <iostream>
+
+#ifdef _WIN32
+#include <conio.h> // Windows specific input library
+#else
+#include <ncurses.h> // macOS and Linux
+#endif
+
 
 // Constructor
 Context::Context(GameState* state): currentState_(nullptr){
@@ -82,11 +88,15 @@ void Context::run(){
 
 
 int Context::processUserInput(){
-    // Init ncurses for keyboard input
+
     int pressedKey;
+
+#ifdef _WIN32
+    pressedKey = _getch(); // Read character
+#else
     timeout(0); // Set non-blocking input
-    
-    pressedKey = getch(); // Read character
+    pressedKey = getch();
+#endif
     
     return pressedKey;
 }

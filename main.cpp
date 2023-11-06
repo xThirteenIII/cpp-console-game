@@ -19,8 +19,10 @@ void Die(Context* context);
 
 int main(){
 
-    // Init ncurses library
+#ifndef _WIN32
+    // Init ncurses library on macOS and Linux
     initscr();
+#endif
 
     Context* context = new Context(new MainMenuState);
     context->run();
@@ -35,7 +37,9 @@ int main(){
 
     delete context;
 
-    endwin();
+#ifndef _WIN32
+    endwin(); // Clean up ncurses library
+#endif
     return 0;
 }
 
