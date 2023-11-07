@@ -41,8 +41,10 @@ void Context::run(){
 
     GameManager* gameManager = GameManager::GetInstance();
 
+    NcursesAdapter* renderer = nullptr;
+
     // Initialize the map handler with a reference to the context
-    MapHandler mapHandler(gameManager->getSetting("ROWS"), gameManager->getSetting("COLS"), new NcursesRenderer);
+    MapHandler mapHandler(gameManager->getSetting("ROWS"), gameManager->getSetting("COLS"), renderer);
     //mapHandler.initializeMap();
 
     while (true){

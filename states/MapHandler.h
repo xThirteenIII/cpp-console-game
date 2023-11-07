@@ -21,6 +21,7 @@ public:
 
     void initializeMap();
     void update(GameState* currentState);
+    void renderMap();
 
 };
 #endif

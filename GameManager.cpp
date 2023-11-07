@@ -1,8 +1,14 @@
 #include "GameManager.h"
 #include "states/Context.h"
 #include "states/MainMenuState.h"
+#include "states/MapHandler.h"
 #include <iostream>
 #include <mutex>
+#ifndef _WIN32
+#include "renderer/NcursesAdapter.h"
+#else
+#include <conio.h>
+#endif
 
 GameManager* GameManager::instance_=nullptr;
 std::mutex GameManager::mutex_;
@@ -16,6 +22,13 @@ GameManager::~GameManager(){};
 
 void GameManager::initialize(){
     // implement settings
+#ifndef _WIN32
+    NcursesAdapter  renderer;
+#else
+    ConioAdapter renderer;
+#endif
+    MapHandler mapHandler = MapHandler(this->getSetting("ROWS"), this->getSetting("COLS"), &renderer);
+    mapHandler.initializeMap();
 }
 
 void GameManager::runGameLoop(){

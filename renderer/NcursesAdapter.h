@@ -1,6 +1,6 @@
 #include "RendererAdapter.h"
 
-class NcursesRenderer: public RendererAdapter{
+class NcursesAdapter: public RendererAdapter{
     public:
         void initialize() override;
         void finalize() override;

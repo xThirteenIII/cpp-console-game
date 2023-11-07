@@ -6,12 +6,13 @@
 #include "PauseState.h"
 #include "../globals.h"
 #include "../GameManager.h"
+#include "../renderer/NcursesAdapter.h"
 #include <cstddef>
 #include <ncurses.h>
 #include <iostream>
+#include <vector>
 
-MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer){
-    std::cout << "handling map" << std::endl;
+MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer): rows(rows), columns(columns), renderer_(renderer){
 }
 
 void MapHandler::update(GameState* currentState){
@@ -28,42 +29,34 @@ void MapHandler::update(GameState* currentState){
     }
 }
 
-/*void MapHandler::printGameMap(){
-    // Get terminal dimensions
-    int rows, columns;
-    getmaxyx(stdscr, rows, columns);
+void MapHandler::renderMap(){
 
-    // Create two off-screen buffers (one for the current frame and one for the previous frame)
-    WINDOW* currentFrameBuffer = newwin(rows, columns, 0, 0);
-    WINDOW* previousFrameBuffer = newwin(rows, columns, 0, 0);
-
-    char currentMap[rows][columns];
-    char previousMap[rows][columns];
-
-    // Initialize the game map and current/previous frame buffers
-
-    // Draw the top row of X's
-    mvwprintw(offScreenBuffer,0, 0, "###########");
-
-    // Draw the left and right vertical edges
-    for (int i = 1; i < 5; i++) {
-        mvwprintw(offScreenBuffer,i, 0, "#");
-        mvwprintw(offScreenBuffer,i, 10, "#");
-    }
-
-    // Draw the bottom row of X's
-    mvwprintw(offScreenBuffer,5, 0, "###########");
-    copywin(offScreenBuffer, stdscr, 0, 0, 0, 0, rows - 1, columns - 1, 0);
-
+    // Do i have to do it every frame? Naaaah i think not
+    renderer_->initialize();
+    renderer_->finalize();
 }
 
+void MapHandler::initializeMap(){
+    rows = GameManager::GetInstance()->getSetting("ROWS");
+    columns = GameManager::GetInstance()->getSetting("COLS");
 
-void MapHandler::initializeMap() {
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 5; j++) {
-            currentMap[i][j] = '#';
-            previous
+    if (renderer_ == nullptr){
+    #ifndef _WIN32
+        renderer_ = new NcursesAdapter();
+    #else
+        renderer_ = new ConioAdapter();
+    #endif
+        renderer_->initialize();
+    }
+
+    std::vector<std::vector<char> >initialMap(rows,std::vector<char>(columns, '.')); // Fill map with dots
+
+    // Fill the walls with #
+    for (int i=0; i<rows; i++){
+        for (int j=0; j<columns; j++){
+            if (i == 0 || i == rows - 1 || j == 0 || j == columns - 1) {
+                initialMap[i][j] = '#';
+            }
         }
     }
 }
-*/

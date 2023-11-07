@@ -1,20 +1,21 @@
 #include "NcursesAdapter.h"
 #include <ncurses.h>
 
-void NcursesRenderer::initialize(){
-
+void NcursesAdapter::initialize(){
     // Init ncurses library
     initscr();
+    noecho(); // Disable echoing for user input
+    curs_set(FALSE); // Hide cursor
 }
 
-void NcursesRenderer::finalize(){
+void NcursesAdapter::finalize(){
 
     // Cleanup and close ncurses library
     endwin();
 }
 
-void NcursesRenderer::handleInput(){
+void NcursesAdapter::handleInput(){
 }
 
-void NcursesRenderer::render(){
+void NcursesAdapter::render(){
 }
