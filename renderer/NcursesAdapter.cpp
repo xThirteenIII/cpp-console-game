@@ -9,7 +9,6 @@ void NcursesAdapter::initialize(){
 }
 
 void NcursesAdapter::finalize(){
-
     // Cleanup and close ncurses library
     endwin();
 }
@@ -18,4 +17,5 @@ void NcursesAdapter::handleInput(){
 }
 
 void NcursesAdapter::render(){
+    refresh(); // Updates screen with the changes made by mvprintw
 }

@@ -41,14 +41,9 @@ void Context::run(){
 
     GameManager* gameManager = GameManager::GetInstance();
 
-    NcursesAdapter* renderer = nullptr;
-
-    // Initialize the map handler with a reference to the context
-    MapHandler mapHandler(gameManager->getSetting("ROWS"), gameManager->getSetting("COLS"), renderer);
-    //mapHandler.initializeMap();
+    MapHandler& mapHandler = gameManager->getMapHandler();
 
     while (true){
-        clear();
 
         int pressedKey = processUserInput();
 
@@ -79,29 +74,21 @@ void Context::run(){
                     break;
             }
         }
+
+        mapHandler.update(this->currentState_);
          
        
-        mapHandler.update(this->currentState_);
-        
-        // Check for conditions to transition to other states or exit the game
-        if (dynamic_cast<GameRunningState*>(this->currentState_) != nullptr) {
-            // Handle actions for gameRunningState
-        }else if (dynamic_cast<GameOverState*>(this->currentState_) != nullptr) {
-            // Handle death menu state
-        }else if (dynamic_cast<MainMenuState*>(this->currentState_) != nullptr) {
-            // Handle main menu stuff
-        }else if (dynamic_cast<PauseState*>(this->currentState_) != nullptr) {
-            // Handle pause menu stuff
-        }else if (dynamic_cast<QuitGameState*>(this->currentState_) != nullptr) {
+        if (dynamic_cast<QuitGameState*>(this->currentState_) != nullptr) {
             // Exit game running loop
             break;
         }
         
 
-        refresh();
 
         this->currentState_->exit();
     }
+
+    mapHandler.finalize();
 }
 
 

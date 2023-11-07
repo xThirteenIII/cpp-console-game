@@ -13,24 +13,15 @@
 
 int main(){
 
-#ifndef _WIN32
-    initscr();// Init ncurses library on macOS and Linux
-    noecho(); // Disable echoing for user input
-    curs_set(FALSE); // Hide cursor
-#endif
-
     // Create gameManager istance
     // GetIstance() either returns the existing istance or creates a new one.
     GameManager* gameManager = GameManager::GetInstance();
     gameManager->setSetting("W_WIDTH", 10);
-    gameManager->setSetting("W_HEIGHT", 5);
+    gameManager->setSetting("W_HEIGHT", 20);
     gameManager->initialize();
     gameManager->runGameLoop();
+    gameManager->finalize();
 
-
-#ifndef _WIN32
-    endwin(); // Clean up ncurses library
-#endif
 
     // gameManager istance will be automatically deleted 
     // since it's a singleton

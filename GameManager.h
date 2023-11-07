@@ -1,3 +1,4 @@
+#include "states/MapHandler.h"
 #include <map>
 #include <mutex>
 #include <string>
@@ -23,6 +24,8 @@ private:
    // Use a map to store game setting as key-value pairs
    std::map<std::string, int> gameSettings;
 
+   MapHandler mapHandler;
+
 
 
 
@@ -46,6 +49,10 @@ public:
  */
     static GameManager* GetInstance();
 
+    MapHandler &getMapHandler() {
+        return mapHandler;
+    }
+
     // Initialize game settings and other necessary components
     void initialize();
 
@@ -57,6 +64,11 @@ public:
 
     // Get a game setting
     int getSetting(const std::string& key);
+
+    // Clean up settings and libraries
+    void finalize();
+
+
 }; 
 
 #endif

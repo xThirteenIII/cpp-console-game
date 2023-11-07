@@ -22,12 +22,7 @@ GameManager::~GameManager(){};
 
 void GameManager::initialize(){
     // implement settings
-#ifndef _WIN32
-    NcursesAdapter  renderer;
-#else
-    ConioAdapter renderer;
-#endif
-    MapHandler mapHandler = MapHandler(this->getSetting("ROWS"), this->getSetting("COLS"), &renderer);
+    mapHandler = MapHandler(this->getSetting("W_WIDTH"), this->getSetting("W_HEIGHT"), nullptr);
     mapHandler.initializeMap();
 }
 
@@ -80,4 +75,8 @@ int GameManager::getSetting(const std::string &key){
     }
     // Handle the case where the setting doesn't exist
     return -1; // You can choose a default value or handle it differently
+}
+
+void GameManager::finalize(){
+    this->mapHandler.finalize();
 }
