@@ -16,8 +16,8 @@ int main(){
     // Create gameManager istance
     // GetIstance() either returns the existing istance or creates a new one.
     GameManager* gameManager = GameManager::GetInstance();
-    gameManager->setSetting("W_WIDTH", 10);
-    gameManager->setSetting("W_HEIGHT", 20);
+    gameManager->setSetting("W_HEIGHT", 10);
+    gameManager->setSetting("W_WIDTH", 20);
     gameManager->initialize();
     gameManager->runGameLoop();
     gameManager->finalize();

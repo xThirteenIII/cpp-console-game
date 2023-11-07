@@ -22,7 +22,7 @@ GameManager::~GameManager(){};
 
 void GameManager::initialize(){
     // implement settings
-    mapHandler = MapHandler(this->getSetting("W_WIDTH"), this->getSetting("W_HEIGHT"), nullptr);
+    mapHandler = MapHandler(this->getSetting("W_HEIGHT"), this->getSetting("W_WIDTH"), nullptr);
     mapHandler.initializeMap();
 }
 
