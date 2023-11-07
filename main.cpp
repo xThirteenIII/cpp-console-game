@@ -11,13 +11,6 @@
 #include <ncurses.h>
 #include <iostream>
 
-void StartGame(Context* context);
-void GoToMainMenu(Context* context);
-void PauseGame(Context* context);
-void Die(Context* context);
-
-
-
 int main(){
 
 #ifndef _WIN32
@@ -26,33 +19,21 @@ int main(){
     curs_set(FALSE); // Hide cursor
 #endif
 
-    Context* context = new Context(new MainMenuState);
-    context->run();
+    // Create gameManager istance
+    // GetIstance() either returns the existing istance or creates a new one.
+    GameManager* gameManager = GameManager::GetInstance();
+    gameManager->setSetting("W_WIDTH", 10);
+    gameManager->setSetting("W_HEIGHT", 5);
+    gameManager->initialize();
+    gameManager->runGameLoop();
 
-    StartGame(context);
-    GoToMainMenu(context);
-    PauseGame(context);
-    StartGame(context);
-    PauseGame(context);
-    GoToMainMenu(context);
-    Die(context);
 
 #ifndef _WIN32
     endwin(); // Clean up ncurses library
 #endif
+
+    // gameManager istance will be automatically deleted 
+    // since it's a singleton
     return 0;
 }
 
-void StartGame(Context* context){
-    context->setState(new GameRunningState);
-}
-void GoToMainMenu(Context* context){
-    context->setState(new MainMenuState);
-
-}
-void PauseGame(Context* context){
-    context->setState(new PauseState);
-}
-void Die(Context* context){
-    context->setState(new GameOverState);
-}

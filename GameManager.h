@@ -21,7 +21,7 @@ private:
    ~GameManager();
 
    // Use a map to store game setting as key-value pairs
-   std::map<std::string, std::string> gameSettings;
+   std::map<std::string, int> gameSettings;
 
 
 
@@ -53,10 +53,10 @@ public:
     void runGameLoop();
 
     // Set a game setting
-    void setSetting(const std::string& key, const std::string& value);
+    void setSetting(const std::string& key, const int& value);
 
     // Get a game setting
-    std::string getSetting(const std::string& key);
+    int getSetting(const std::string& key);
 }; 
 
 #endif

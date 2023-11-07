@@ -1,4 +1,6 @@
 #include "GameManager.h"
+#include "states/Context.h"
+#include "states/MainMenuState.h"
 #include <iostream>
 #include <mutex>
 
@@ -18,7 +20,12 @@ void GameManager::initialize(){
 
 void GameManager::runGameLoop(){
     // implement game loop
+    // Init MainMenu as the first state we enter
+    Context* context = new Context(new MainMenuState);
+    context->run();
 
+
+    delete context;
 }
 
 // Get the singleton instance
@@ -43,20 +50,21 @@ GameManager* GameManager::GetInstance(){
     return instance_;
 }
 
-void GameManager::setSetting(const std::string &key, const std::string &value){
+void GameManager::setSetting(const std::string &key, const int &value){
     std::lock_guard<std::mutex> lock(mutex_);
     gameSettings[key] = value;
 }
 
-std::string GameManager::getSetting(const std::string &key){
+int GameManager::getSetting(const std::string &key){
     std::lock_guard<std::mutex> lock(mutex_);
     // this returns an iterator to the element if the key is found, or it returns an iterator equal to gameSettings.end() if the key is not found.
     auto iterator = gameSettings.find(key);
     if (iterator != gameSettings.end()){
+
         //In a std::map, the first part of the pair is the key, and the second part is the value.
         //So, this line returns the value corresponding to the found key.
         return iterator->second;
     }
     // Handle the case where the setting doesn't exist
-    return ""; // You can choose a default value or handle it differently
+    return -1; // You can choose a default value or handle it differently
 }

@@ -5,16 +5,20 @@
 #include "MainMenuState.h"
 #include "PauseState.h"
 #include "../globals.h"
+#include "../GameManager.h"
 #include <cstddef>
 #include <ncurses.h>
 #include <iostream>
 
-MapHandler::MapHandler(Context* context) : context_(context){}
+MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer){
+    std::cout << "handling map" << std::endl;
+}
 
 void MapHandler::update(GameState* currentState){
     // Check the current game state and render accordingly
     if (dynamic_cast<GameRunningState*>(currentState) != nullptr){
-       printGameMap(); 
+       //printGameMap(); 
+        std::cout << "MAP" << std::endl;
     }else if (dynamic_cast<PauseState*>(currentState) != nullptr){
         std::cout << "PAUSE MENU" << std::endl;
     }else if (dynamic_cast<MainMenuState*>(currentState) != nullptr){
@@ -24,24 +28,19 @@ void MapHandler::update(GameState* currentState){
     }
 }
 
-void MapHandler::printGameMap(){
-       // Clear and print the map
-    //std::cout << "\033[2J"; // ANSI escape code to clear the screen
-    //std::cout << "\033[H";  // ANSI escape code to move the cursor to the top
-    /*
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 5; j++) {
-            std::cout << currentMap[i][j];
-        }
-        std::cout << std::endl;
-    }*/
+/*void MapHandler::printGameMap(){
+    // Get terminal dimensions
     int rows, columns;
     getmaxyx(stdscr, rows, columns);
 
-    // Create an off-screen buffer
-    WINDOW* offScreenBuffer = newwin(rows, columns, 0, 0);
+    // Create two off-screen buffers (one for the current frame and one for the previous frame)
+    WINDOW* currentFrameBuffer = newwin(rows, columns, 0, 0);
+    WINDOW* previousFrameBuffer = newwin(rows, columns, 0, 0);
 
-    wclear(offScreenBuffer);
+    char currentMap[rows][columns];
+    char previousMap[rows][columns];
+
+    // Initialize the game map and current/previous frame buffers
 
     // Draw the top row of X's
     mvwprintw(offScreenBuffer,0, 0, "###########");
@@ -59,11 +58,12 @@ void MapHandler::printGameMap(){
 }
 
 
-/* Function to initialize the map with X's
 void MapHandler::initializeMap() {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 5; j++) {
-            currentMap[i][j] = '█';
+            currentMap[i][j] = '#';
+            previous
         }
     }
-}*/
+}
+*/

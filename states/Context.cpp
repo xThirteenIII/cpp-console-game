@@ -2,9 +2,12 @@
 #include "GameState.h"
 #include "GameOverState.h"
 #include "GameRunningState.h"
+#include "QuitGameState.h"
 #include "MainMenuState.h"
 #include "MapHandler.h"
 #include "PauseState.h"
+#include "../GameManager.h"
+#include "../renderer/NcursesAdapter.h"
 #include <iostream>
 
 #ifdef _WIN32
@@ -36,9 +39,10 @@ void Context::setState(GameState* state){
 // run is a request from context
 void Context::run(){
 
+    GameManager* gameManager = GameManager::GetInstance();
 
     // Initialize the map handler with a reference to the context
-    MapHandler mapHandler(this);
+    MapHandler mapHandler(gameManager->getSetting("ROWS"), gameManager->getSetting("COLS"), new NcursesRenderer);
     //mapHandler.initializeMap();
 
     while (true){
@@ -62,9 +66,13 @@ void Context::run(){
                 case 'p':
                     setState(new PauseState());
                     break;
-                case 'q':
+                case 'd':
                     setState(new GameOverState());
                     break;
+                case 'q':
+                    setState(new QuitGameState());
+                    break;
+
                 default:
                     break;
             }
@@ -77,11 +85,14 @@ void Context::run(){
         if (dynamic_cast<GameRunningState*>(this->currentState_) != nullptr) {
             // Handle actions for gameRunningState
         }else if (dynamic_cast<GameOverState*>(this->currentState_) != nullptr) {
-            break; // Exit the loop when in the GameOverState
+            // Handle death menu state
         }else if (dynamic_cast<MainMenuState*>(this->currentState_) != nullptr) {
             // Handle main menu stuff
         }else if (dynamic_cast<PauseState*>(this->currentState_) != nullptr) {
             // Handle pause menu stuff
+        }else if (dynamic_cast<QuitGameState*>(this->currentState_) != nullptr) {
+            // Exit game running loop
+            break;
         }
         
 

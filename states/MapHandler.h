@@ -3,18 +3,21 @@
 #include "Context.h"
 #include "GameState.h"
 #include "../globals.h"
+#include "../renderer/RendererAdapter.h"
+#include "ncurses.h"
 
 
 
 class MapHandler{
 private:
-    Context* context_;
-    char currentMap[5][10];
+    int rows;
+    int columns;
 
-    void printGameMap();
-    void printStateMenus();
+    RendererAdapter* renderer_;
+
 public:
-    MapHandler(Context* context);
+    // Constructor
+    MapHandler(int rows, int columns, RendererAdapter* renderer);
 
     void initializeMap();
     void update(GameState* currentState);
