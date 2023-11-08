@@ -1,3 +1,4 @@
+#include "characters/Player.h"
 #include "states/MapHandler.h"
 #include <map>
 #include <mutex>
@@ -26,6 +27,7 @@ private:
 
    MapHandler mapHandler;
 
+   Player* player;
 
 
 
@@ -51,6 +53,10 @@ public:
 
     MapHandler &getMapHandler() {
         return mapHandler;
+    }
+
+    Player* getPlayer(){
+        return player;
     }
 
     // Initialize game settings and other necessary components

@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "characters/Player.h"
 #include "states/Context.h"
 #include "states/MainMenuState.h"
 #include "states/MapHandler.h"
@@ -21,9 +22,12 @@ GameManager::~GameManager(){};
 
 
 void GameManager::initialize(){
-    // implement settings
+    // Initialize Map
     mapHandler = MapHandler(this->getSetting("W_HEIGHT"), this->getSetting("W_WIDTH"), nullptr);
     mapHandler.initializeMap();
+
+    // Initialize Player
+    player = new Player();
 }
 
 void GameManager::runGameLoop(){

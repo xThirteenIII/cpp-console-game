@@ -39,5 +39,8 @@ public:
     void update(GameState* currentState);
     void renderMap();
     void finalize();
+
+    // swapMaps allows for double buffer
+    void swapMaps();
 };
 #endif

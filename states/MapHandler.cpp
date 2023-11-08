@@ -18,7 +18,7 @@
 #endif
 
 // Default constructor
-MapHandler::MapHandler():rows(10), columns(5), renderer_(nullptr){
+MapHandler::MapHandler():rows(20), columns(10), renderer_(nullptr){
 
 }
 
@@ -39,6 +39,26 @@ MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer)
     }
 }
 
+
+void MapHandler::initializeMap(){
+    // Fill the walls with #
+    for (int i=0; i<rows; i++){
+        for (int j=0; j<columns; j++){
+            if (i == 0 || i == rows - 1 || j == 0 || j == columns - 1) {
+                initialMap[i][j] = '#';
+            }
+        }
+    }
+
+    // Init currentMap and previousMap as the default one
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            previousMap[i][j] = initialMap[i][j];
+            currentMap[i][j]= initialMap[i][j];
+        }
+    }
+}
+
 void MapHandler::update(GameState* currentState){
     clear();
     // Check the current game state and render accordingly
@@ -54,31 +74,46 @@ void MapHandler::update(GameState* currentState){
 }
 
 void MapHandler::renderMap(){
+    GameManager* gameManager = GameManager::GetInstance();
+
+    // Update player position
+    currentMap[gameManager->getPlayer()->getX()][gameManager->getPlayer()->getY()]='P';
 
     // Do i have to do it every frame? Naaaah i think not
     //renderer_->initialize();
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-            char mapChar = initialMap[i][j];
+            char mapChar = currentMap[i][j];
             mvprintw(i, j, "%c", mapChar);
         }
     }
-    this->renderer_->render();
+    renderer_->render();
 }
 
-void MapHandler::initializeMap(){
-    // Fill the walls with #
-    for (int i=0; i<rows; i++){
-        for (int j=0; j<columns; j++){
-            if (i == 0 || i == rows - 1 || j == 0 || j == columns - 1) {
-                initialMap[i][j] = '#';
-            }
-        }
-    }
-}
 
 void MapHandler::finalize(){
 
     // Clean up libraries if needed
     renderer_->finalize();
+}
+
+// Be sure to call this before upgrading player/character positions
+void MapHandler::swapMaps(){
+
+    GameManager* gameManager = GameManager::GetInstance();
+
+    int playerX = gameManager->getPlayer()->getX();
+    int playerY = gameManager->getPlayer()->getY();
+
+    // Copy the current map into the previous map
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            previousMap[i][j] = currentMap[i][j];
+        }
+    }
+
+    // Re-insert a dot in the previous player position
+    currentMap[playerX][playerY] = '.';
+
+
 }

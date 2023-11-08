@@ -41,7 +41,9 @@ void Context::run(){
 
     GameManager* gameManager = GameManager::GetInstance();
 
+    Player* player = gameManager->getPlayer();
     MapHandler& mapHandler = gameManager->getMapHandler();
+    //mapHandler.swapMaps();
 
     while (true){
 
@@ -59,11 +61,28 @@ void Context::run(){
                     break;
                 case 'w':
                     setState(new GameRunningState());
+                    // Move up
+                    player->move(1,0);
+                    break;
+                case 'a':
+                    setState(new GameRunningState());
+                    // Move left 
+                    player->move(0,-1);
+                    break;
+                case 's':
+                    // Move down 
+                    player->move(-1,0);
+                    setState(new GameRunningState());
+                    break;
+                case 'd':
+                    setState(new GameRunningState());
+                    // Move right 
+                    player->move(0,1);
                     break;
                 case 'p':
                     setState(new PauseState());
                     break;
-                case 'd':
+                case 'f':
                     setState(new GameOverState());
                     break;
                 case 'q':
@@ -75,7 +94,7 @@ void Context::run(){
             }
         }
 
-        mapHandler.update(this->currentState_);
+        //mapHandler.update(this->currentState_);
          
        
         if (dynamic_cast<QuitGameState*>(this->currentState_) != nullptr) {
