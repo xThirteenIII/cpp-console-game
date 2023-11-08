@@ -38,59 +38,25 @@ void Context::setState(GameState* state){
     this->currentState_->set_context(this);
 }
 
-// run is a request from context
-void Context::run(){
+void Context::switchState(){
 
-    GameManager* gameManager = GameManager::GetInstance();
+        if (GameManager::GetInstance()->getInputKey() != ERR){
 
-    Player* player = gameManager->getPlayer();
-    MapHandler& mapHandler = gameManager->getMapHandler();
-
-    RendererAdapter* renderer = mapHandler.getRenderer();
-    renderer->initialize();
-
-    
-
-    while (true){
-        mapHandler.swapMaps();
-        gameManager->readInputKey();
-
-        // Store previous state
-        this->previousState_ = this->currentState_;
-
-        // enter() is how the GameState handles the request
-        this->currentState_->enter();
-        this->currentState_->update();
-    
-        if (gameManager->getInputKey() != ERR){
-
-            switch (gameManager->getInputKey()) {
+            switch (GameManager::GetInstance()->getInputKey()) {
                 case 'm':
                     setState(new MainMenuState());
                     break;
                 case 'w':
                     setState(new GameRunningState());
-                    // Move one row up
-                    // -1 because you want to go one position less: e.g. from [2][1] to [1][1] to go up
-                    player->move(-1,0);
                     break;
                 case 'a':
                     setState(new GameRunningState());
-                    // Move one column left 
-                    // [3][4] to [3][3]
-                    player->move(0,-1);
                     break;
                 case 's':
-                    // Move one row down 
-                    // [3][4] to [4][4]
-                    player->move(1,0);
                     setState(new GameRunningState());
                     break;
                 case 'd':
                     setState(new GameRunningState());
-                    // Move one column right 
-                    // [3][4] to [3][5]
-                    player->move(0,1);
                     break;
                 case 'p':
                     setState(new PauseState());
@@ -107,6 +73,35 @@ void Context::run(){
             }
         }
 
+}
+
+// run is a request from context
+void Context::run(){
+
+    GameManager* gameManager = GameManager::GetInstance();
+
+    MapHandler& mapHandler = gameManager->getMapHandler();
+
+    RendererAdapter* renderer = mapHandler.getRenderer();
+    renderer->initialize();
+
+    
+
+    while (true){
+        mapHandler.swapMaps();
+        
+        // Store key pressed by the user in private inputKey field in the GameManager single istance
+        gameManager->readInputKey();
+
+        // Store previous state
+        this->previousState_ = this->currentState_;
+
+        // enter() is how the GameState handles the request
+        this->currentState_->enter();
+
+        this->switchState();
+
+        this->currentState_->update();
         mapHandler.update(this->currentState_, this->previousState_);
          
        
@@ -114,8 +109,6 @@ void Context::run(){
             // Exit game running loop
             break;
         }
-        
-
 
         this->currentState_->exit();
     }

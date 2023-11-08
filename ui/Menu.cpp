@@ -35,6 +35,8 @@ void Menu::getSelection(){
                 if (selectedItem < static_cast<int>(this->items.size())-1){
                     selectedItem+=1;
                 }
+            case KEY_ENTER:
+                
         
             default:
                 break;

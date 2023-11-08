@@ -16,6 +16,7 @@ class Context{
        * The Context delegates part of its behavior to the current State object.
        */
         void setState(GameState* state);
+        void switchState();
 
         // The run method enters, updates, and exits the current state in the game loop.
         void run();
