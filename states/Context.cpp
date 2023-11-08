@@ -50,6 +50,10 @@ void Context::switchState(){
                 case 'm':
                     setState(new MainMenuState());
                     break;
+                
+                // TODO: change the input handling, we want to change state just by 
+                // pressing ENTER on the menu options, not by pressing keys.
+                //
                 case 'w':
                     setState(new GameRunningState());
                     break;
@@ -71,7 +75,6 @@ void Context::switchState(){
                 case 'q':
                     setState(new QuitGameState());
                     break;
-
                 default:
                     break;
             }
@@ -134,6 +137,9 @@ void Context::run(){
         // Run State specific final stuff (empty for now)
         this->currentState_->exit();
     }
+
+    // Is this necessary?
+    delete this->previousState_;
 
     // Run renderer specific functions, like endwin() for ncurses
     renderer->finalize();

@@ -2,9 +2,14 @@
 #define _PAUSESTATE_H_
 
 #include "GameState.h"
+#include "../ui/Menu.h"
+
 class PauseState : public GameState { 
+    private:
+        Menu* pauseMenu;
 
     public:
+        PauseState();
         void enter() override;    
         void update() override;    
         void exit() override;    

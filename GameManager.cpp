@@ -28,7 +28,7 @@ void GameManager::initialize(){
     mapHandler.initializeMap();
 
     // Initialize Player
-    player = new Player();
+    this->player = new Player();
 }
 
 void GameManager::runGameLoop(){
