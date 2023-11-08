@@ -1,5 +1,15 @@
 #include "GameOverState.h"
+#include "MainMenuState.h"
+#include "../ui/Menu.h"
+#include "../GameManager.h"
+#include "Context.h"
+#include "GameOverState.h"
+#include "GameRunningState.h"
+#include "GameState.h"
+#include "QuitGameState.h"
 #include <iostream>
+#include <string>
+#include <vector>
 
 
 GameOverState::GameOverState():gameOverMenu(nullptr){
@@ -14,7 +24,24 @@ void GameOverState::enter(){
     gameOverMenu->display();
 }
 void GameOverState::update(Context* context){
-    gameOverMenu->getSelection();
+    // Handle main menu logic
+    // 
+    int selectedItem = gameOverMenu->getSelection();
+
+    if (GameManager::GetInstance()->getInputKey() != ERR){
+        switch (GameManager::GetInstance()->getInputKey()) {
+            case '\n':
+                if (selectedItem == 0){
+                    // TODO: Game Has to reset, this is not correct
+                    context->setState(new GameRunningState());
+                }else if (selectedItem == 1){
+                    context->setState(new MainMenuState());
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
 void GameOverState::exit(){
 }

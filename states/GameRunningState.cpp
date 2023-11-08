@@ -1,4 +1,5 @@
 #include "GameRunningState.h"
+#include "PauseState.h"
 #include "../GameManager.h"
 #include "MapHandler.h"
 #include <iostream>
@@ -30,11 +31,13 @@ void GameRunningState::update(Context* context){
                 // [3][4] to [3][3]
                 player->move(0,-1);
                 break;
-            case'd':
+            case 'd':
                 // Move one column right 
                 // [3][4] to [3][5]
                 player->move(0,1);
                 break;
+            case 'p':
+                context->setState(new PauseState());
             default:
                 break;
         }
