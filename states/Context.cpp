@@ -43,9 +43,9 @@ void Context::run(){
 
     Player* player = gameManager->getPlayer();
     MapHandler& mapHandler = gameManager->getMapHandler();
-    mapHandler.swapMaps();
 
     while (true){
+        mapHandler.swapMaps();
 
         int pressedKey = processUserInput();
 

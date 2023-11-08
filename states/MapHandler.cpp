@@ -109,6 +109,9 @@ void MapHandler::swapMaps(){
     int playerX = gameManager->getPlayer()->getX();
     int playerY = gameManager->getPlayer()->getY();
 
+    // Re-insert a dot in the previous player position
+    currentMap[playerX][playerY] = '.';
+
     // Copy the current map into the previous map
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
@@ -116,8 +119,6 @@ void MapHandler::swapMaps(){
         }
     }
 
-    // Re-insert a dot in the previous player position
-    currentMap[playerX][playerY] = '.';
 
 
 }
