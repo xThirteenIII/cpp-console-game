@@ -13,13 +13,21 @@
 
 int main(){
 
-    // Create gameManager istance
+    // Create gameManager istance, which is a Singleton.
     // GetIstance() either returns the existing istance or creates a new one.
     GameManager* gameManager = GameManager::GetInstance();
+
+    // Set window settings to play the game
     gameManager->setSetting("W_HEIGHT", 10);
     gameManager->setSetting("W_WIDTH", 20);
+
+    // Run initialization for various game components, like renderers
     gameManager->initialize();
+
+    // Run the game loop of the context field
     gameManager->runGameLoop();
+
+    // Run finalization for various game Components
     gameManager->finalize();
 
 
