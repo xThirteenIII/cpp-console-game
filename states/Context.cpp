@@ -46,12 +46,14 @@ void Context::run(){
     Player* player = gameManager->getPlayer();
     MapHandler& mapHandler = gameManager->getMapHandler();
 
+    RendererAdapter* renderer = mapHandler.getRenderer();
+    renderer->initialize();
+
     
 
     while (true){
         mapHandler.swapMaps();
-
-        int pressedKey = mapHandler.getRenderer()->handleInput();
+        gameManager->readInputKey();
 
         // Store previous state
         this->previousState_ = this->currentState_;
@@ -60,9 +62,9 @@ void Context::run(){
         this->currentState_->enter();
         this->currentState_->update();
     
-        if (pressedKey != ERR){
+        if (gameManager->getInputKey() != ERR){
 
-            switch (pressedKey) {
+            switch (gameManager->getInputKey()) {
                 case 'm':
                     setState(new MainMenuState());
                     break;
@@ -118,5 +120,5 @@ void Context::run(){
         this->currentState_->exit();
     }
 
-    mapHandler.finalize();
+    renderer->finalize();
 }

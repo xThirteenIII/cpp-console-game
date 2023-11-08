@@ -16,6 +16,8 @@ private:
    static GameManager* instance_;
    static std::mutex mutex_;
 
+   int inputKey;
+
    // Constructor
    GameManager();
 
@@ -49,6 +51,8 @@ public:
  */
     static GameManager* GetInstance();
 
+    
+
     MapHandler &getMapHandler() {
         return mapHandler;
     }
@@ -56,6 +60,9 @@ public:
     Player* getPlayer(){
         return player;
     }
+
+    void readInputKey();
+    int getInputKey();
 
     // Initialize game settings and other necessary components
     void initialize();

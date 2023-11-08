@@ -38,7 +38,6 @@ MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer)
         #else
             renderer_ = new ConioAdapter();
         #endif
-        renderer_->initialize();
     }
 }
 

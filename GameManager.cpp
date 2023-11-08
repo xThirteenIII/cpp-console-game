@@ -7,6 +7,7 @@
 #include <mutex>
 #ifndef _WIN32
 #include "renderer/NcursesAdapter.h"
+#include <ncurses.h>
 #else
 #include <conio.h>
 #endif
@@ -82,4 +83,13 @@ int GameManager::getSetting(const std::string &key){
 
 void GameManager::finalize(){
     this->mapHandler.finalize();
+}
+
+void GameManager::readInputKey(){
+    timeout(0);
+    this->inputKey = getch();
+}
+
+int GameManager::getInputKey(){
+    return this->inputKey;
 }
