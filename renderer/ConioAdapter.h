@@ -1,6 +1,7 @@
 #include "RendererAdapter.h"
 
-class NcursesAdapter: public RendererAdapter{
+// Adapter for windows library conio.h
+class ConioAdapter: public RendererAdapter{
     public:
         void initialize() override;
         void finalize() override;

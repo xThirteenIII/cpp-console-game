@@ -14,7 +14,6 @@ private:
     int rows;
     int columns;
 
-    RendererAdapter* renderer_;
 
     // Default map, useful for when the game resets
     std::vector< std::vector<char> > initialMap;
@@ -25,7 +24,7 @@ private:
     // Previous state map, it will be swapped with current in the update() method
     std::vector< std::vector<char> > previousMap;
 
-
+    RendererAdapter* renderer_;
 
 public:
 
@@ -36,11 +35,13 @@ public:
     MapHandler(int rows, int columns, RendererAdapter* renderer);
 
     void initializeMap();
-    void update(GameState* currentState);
+    void update(GameState* currentState, GameState* previousState);
     void renderMap();
     void finalize();
 
     // swapMaps allows for double buffer
     void swapMaps();
+
+    RendererAdapter* getRenderer();
 };
 #endif

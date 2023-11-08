@@ -6,6 +6,7 @@ void NcursesAdapter::initialize(){
     initscr();
     noecho(); // Disable echoing for user input
     curs_set(FALSE); // Hide cursor
+    keypad(stdscr, TRUE);  // Enable special keys
 }
 
 void NcursesAdapter::finalize(){
@@ -13,7 +14,10 @@ void NcursesAdapter::finalize(){
     endwin();
 }
 
-void NcursesAdapter::handleInput(){
+int NcursesAdapter::handleInput(){
+    // Does the timeout go here?
+    timeout(0); // Set non-blocking input
+    return getch();
 }
 
 void NcursesAdapter::render(){

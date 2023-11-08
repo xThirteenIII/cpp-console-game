@@ -6,7 +6,7 @@ class RendererAdapter{
         virtual void initialize() = 0;
         virtual void finalize() = 0;
         virtual void render() = 0;
-        virtual void handleInput() = 0;
+        virtual int handleInput() = 0;
 };
 
 #endif

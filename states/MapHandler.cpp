@@ -5,6 +5,7 @@
 #include "MainMenuState.h"
 #include "PauseState.h"
 #include "../globals.h"
+#include "../ui/Menu.h"
 #include "../GameManager.h"
 #include "../renderer/NcursesAdapter.h"
 #include <cstddef>
@@ -63,18 +64,29 @@ void MapHandler::initializeMap(){
     }
 }
 
-void MapHandler::update(GameState* currentState){
-    clear();
+void MapHandler::update(GameState* currentState, GameState* previousState){
+
+    // Clear screen if the state changes
+    if (currentState != previousState){
+        clear();
+    }
+
+    // Create Menu istances
+    Menu mainMenu({"Start Game", "Quit Game"});
+    Menu pauseMenu({"Resume", "Main Menu"});
+    Menu deathMenu({"YOU DIED", "Retry", "Main Menu"});
+
     // Check the current game state and render accordingly
     if (dynamic_cast<GameRunningState*>(currentState) != nullptr){
         this->renderMap();
     }else if (dynamic_cast<PauseState*>(currentState) != nullptr){
-        std::cout << "PAUSE MENU" << std::endl;
-    }else if (dynamic_cast<MainMenuState*>(currentState) != nullptr){
-        std::cout << "MAIN MENU" << std::endl;
+        pauseMenu.getSelection();
+        pauseMenu.display();
     }else if (dynamic_cast<GameOverState*>(currentState) != nullptr){
-        std::cout << "YOU DIED" << std::endl;
+        pauseMenu.getSelection();
+        deathMenu.display();
     }
+    renderer_->render();
 }
 
 void MapHandler::renderMap(){
@@ -83,15 +95,14 @@ void MapHandler::renderMap(){
     // Update player position
     currentMap[gameManager->getPlayer()->getX()][gameManager->getPlayer()->getY()]='P';
 
-    // Do i have to do it every frame? Naaaah i think not
+    // Do i have to do it every frame? Naaaah don't think so
     //renderer_->initialize();
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-            char mapChar = currentMap[i][j];
-            mvprintw(i, j, "%c", mapChar);
+                char mapChar = currentMap[i][j];
+                mvprintw(i, j, "%c", mapChar);
         }
     }
-    renderer_->render();
 }
 
 
@@ -121,4 +132,8 @@ void MapHandler::swapMaps(){
 
 
 
+}
+
+RendererAdapter* MapHandler::getRenderer(){
+    return renderer_;
 }

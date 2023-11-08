@@ -6,6 +6,7 @@
 #include "MainMenuState.h"
 #include "MapHandler.h"
 #include "PauseState.h"
+#include "../ui/Menu.h"
 #include "../GameManager.h"
 #include "../renderer/NcursesAdapter.h"
 #include <iostream>
@@ -28,6 +29,7 @@ Context::~Context(){
 }
 
 void Context::setState(GameState* state){
+
     // Free current state if it's not null
     if (this->currentState_ != nullptr){
         delete this->currentState_;
@@ -44,10 +46,15 @@ void Context::run(){
     Player* player = gameManager->getPlayer();
     MapHandler& mapHandler = gameManager->getMapHandler();
 
+    
+
     while (true){
         mapHandler.swapMaps();
 
-        int pressedKey = processUserInput();
+        int pressedKey = mapHandler.getRenderer()->handleInput();
+
+        // Store previous state
+        this->previousState_ = this->currentState_;
 
         // enter() is how the GameState handles the request
         this->currentState_->enter();
@@ -98,7 +105,7 @@ void Context::run(){
             }
         }
 
-        mapHandler.update(this->currentState_);
+        mapHandler.update(this->currentState_, this->previousState_);
          
        
         if (dynamic_cast<QuitGameState*>(this->currentState_) != nullptr) {
@@ -112,21 +119,4 @@ void Context::run(){
     }
 
     mapHandler.finalize();
-}
-
-
-
-// Might consider to use the Adapter design pattern if things become more complex.
-int Context::processUserInput(){
-
-    int pressedKey;
-
-#ifdef _WIN32
-    pressedKey = _getch(); // Read character
-#else
-    timeout(0); // Set non-blocking input
-    pressedKey = getch();
-#endif
-    
-    return pressedKey;
 }

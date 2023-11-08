@@ -29,8 +29,6 @@ private:
 
    Player* player;
 
-
-
 public:
 /** This means that
  *  Singleton original("Original");
@@ -73,8 +71,6 @@ public:
 
     // Clean up settings and libraries
     void finalize();
-
-
 }; 
 
 #endif

@@ -5,7 +5,7 @@
 class Context{
     private:
         GameState* currentState_;
-        int processUserInput();
+        GameState* previousState_;
     public:
         //Constructor
         Context(GameState* state);
