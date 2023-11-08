@@ -86,7 +86,7 @@ void GameManager::finalize(){
 }
 
 void GameManager::readInputKey(){
-    timeout(0);
+    timeout(3);
     this->inputKey = getch();
 }
 

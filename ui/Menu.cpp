@@ -23,13 +23,9 @@ void Menu::display() const{
 }
 
 void Menu::getSelection(){
-    
-    MapHandler& mapHandler = GameManager::GetInstance()->getMapHandler();
 
-    int pressedKey = mapHandler.getRenderer()->handleInput();
-
-    if (pressedKey != ERR){
-        switch (pressedKey) {
+    if (GameManager::GetInstance()->getInputKey() != ERR){
+        switch (GameManager::GetInstance()->getInputKey()) {
             case KEY_UP:
                 if (selectedItem > 0){
                     selectedItem-=1;
