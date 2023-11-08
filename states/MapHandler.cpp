@@ -70,21 +70,7 @@ void MapHandler::update(GameState* currentState, GameState* previousState){
         clear();
     }
 
-    // Create Menu istances
-    Menu mainMenu({"Start Game", "Quit Game"});
-    Menu pauseMenu({"Resume", "Main Menu"});
-    Menu deathMenu({"YOU DIED", "Retry", "Main Menu"});
 
-    // Check the current game state and render accordingly
-    if (dynamic_cast<GameRunningState*>(currentState) != nullptr){
-        this->renderMap();
-    }else if (dynamic_cast<PauseState*>(currentState) != nullptr){
-        pauseMenu.getSelection();
-        pauseMenu.display();
-    }else if (dynamic_cast<GameOverState*>(currentState) != nullptr){
-        pauseMenu.getSelection();
-        deathMenu.display();
-    }
     renderer_->render();
 }
 
