@@ -11,7 +11,7 @@ class PauseState : public GameState {
     public:
         PauseState();
         void enter() override;    
-        void update() override;    
+        void update(Context* context) override;    
         void exit() override;    
 };
 

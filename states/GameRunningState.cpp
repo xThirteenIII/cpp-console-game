@@ -5,7 +5,7 @@
 
 void GameRunningState::enter(){
 }
-void GameRunningState::update(){
+void GameRunningState::update(Context* context){
     // Handle movement logic
     //
     // Move one row up

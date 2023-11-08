@@ -11,7 +11,7 @@ class MainMenuState: public GameState{
     public:
         MainMenuState();
         void enter() override;
-        void update() override;
+        void update(Context* context) override;
         void exit() override;
 };
 

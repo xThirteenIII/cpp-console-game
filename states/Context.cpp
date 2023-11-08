@@ -105,12 +105,10 @@ void Context::runGameLoop(){
         this->switchState();
 
         // Update the current state, handling screen update and State specific logic
-        this->currentState_->update();
+        this->currentState_->update(this);
 
         // As for now update just clears screen and calls refresh() to print the render
         mapHandler.update(this->currentState_, this->previousState_);
-         
-       
 
         // Run State specific final stuff (empty for now)
         this->currentState_->exit();

@@ -22,8 +22,7 @@ void Menu::display() const{
     }
 }
 
-void Menu::getSelection(){
-
+int Menu::getSelection(){
     if (GameManager::GetInstance()->getInputKey() != ERR){
         switch (GameManager::GetInstance()->getInputKey()) {
             case KEY_UP:
@@ -35,16 +34,10 @@ void Menu::getSelection(){
                 if (selectedItem < static_cast<int>(this->items.size())-1){
                     selectedItem+=1;
                 }
-            case KEY_ENTER:
-                
-                // Handle simple selection for now
-                if (selectedItem == 0){
-                     
-                }
-                
-        
+                break;
             default:
                 break;
         }
     }
+    return selectedItem;
 }

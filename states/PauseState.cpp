@@ -12,7 +12,7 @@ PauseState::PauseState():pauseMenu(nullptr){
 void PauseState::enter() {
     pauseMenu->display();
 }
-void PauseState::update() {
+void PauseState::update(Context* context) {
     pauseMenu->getSelection();
 }
 void PauseState::exit() {

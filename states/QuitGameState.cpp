@@ -3,7 +3,7 @@
 void QuitGameState::enter(){
 
 }
-void QuitGameState::update(){
+void QuitGameState::update(Context* context){
 
 }
 void QuitGameState::exit(){

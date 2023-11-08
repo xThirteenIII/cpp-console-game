@@ -13,7 +13,7 @@ GameOverState::GameOverState():gameOverMenu(nullptr){
 void GameOverState::enter(){
     gameOverMenu->display();
 }
-void GameOverState::update(){
+void GameOverState::update(Context* context){
     gameOverMenu->getSelection();
 }
 void GameOverState::exit(){

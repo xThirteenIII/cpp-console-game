@@ -11,7 +11,8 @@ class Menu{
     public:
         Menu(std::vector<std::string> items);
 
-        void getSelection();
+        int getSelection();
+
         void display() const;
 };
 #endif

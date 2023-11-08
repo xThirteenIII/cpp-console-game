@@ -21,7 +21,7 @@ class GameState{
         //
         // The enter function sets up the state, update is called on every frame, and exit is used for cleanup.
         virtual void enter() = 0;
-        virtual void update() = 0;
+        virtual void update(Context* context) = 0;
         virtual void exit() = 0;
 };
 #endif

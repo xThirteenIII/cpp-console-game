@@ -1,6 +1,11 @@
 #include "MainMenuState.h"
 #include "../ui/Menu.h"
+#include "../GameManager.h"
 #include "Context.h"
+#include "GameOverState.h"
+#include "GameRunningState.h"
+#include "GameState.h"
+#include "QuitGameState.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -22,9 +27,24 @@ void MainMenuState::enter(){
     mainMenu->display();
 }
 
-void MainMenuState::update(){
+void MainMenuState::update(Context* context){
     // Handle main menu logic
-    mainMenu->getSelection();
+    // 
+    int selectedItem = mainMenu->getSelection();
+
+    if (GameManager::GetInstance()->getInputKey() != ERR){
+        switch (GameManager::GetInstance()->getInputKey()) {
+            case '\n':
+                if (selectedItem == 0){
+                    context->setState(new GameRunningState());
+                }else if (selectedItem == 1){
+                    context->setState(new QuitGameState());
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 void MainMenuState::exit(){

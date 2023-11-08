@@ -5,7 +5,7 @@
 class QuitGameState: public GameState{
     public:
         void enter() override;
-        void update() override;
+        void update(Context* context) override;
         void exit() override;
 };
 #endif

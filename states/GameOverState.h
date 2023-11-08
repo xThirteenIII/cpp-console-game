@@ -10,7 +10,7 @@ class GameOverState : public GameState{
     public:
         GameOverState();
         void enter() override;
-        void update() override;
+        void update(Context* context) override;
         void exit() override;
 };
 
