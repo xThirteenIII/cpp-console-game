@@ -9,5 +9,7 @@ Will implement Windows support later in the future.
 Commands:
 - Use arrows to navigate menus
 - Use wasd to move through the map
-- Shift+'q' to close the game or quit from Main Menu
+- Shift + 'q' to close the game or quit from Main Menu
 - Use p to pause game when playing
+- Ctrl + '+' to resize terminal window (cmd + '+' on Mac) if the
+  game map is too small
