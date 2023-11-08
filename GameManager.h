@@ -1,10 +1,10 @@
+#ifndef _GAMEMANAGER_H_
+#define _GAMEMANAGER_H_
 #include "characters/Player.h"
 #include "states/MapHandler.h"
 #include <map>
 #include <mutex>
 #include <string>
-#ifndef _GAMEMANAGER_H_
-#define _GAMEMANAGER_H_
 
 // GameManager class will manage global game settings and keep track of the game's current state.
 // It is designed like a Singleton to ensure that there's only one instance throughout the game.

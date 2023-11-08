@@ -56,7 +56,6 @@ GameManager* GameManager::GetInstance(){
     std::lock_guard<std::mutex> lock(mutex_);
 
     if (instance_ == nullptr){
-        std::cout << "first run" << std::endl;
         instance_ = new GameManager();
     }
     return instance_;

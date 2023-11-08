@@ -26,7 +26,9 @@ MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer)
     : rows(rows),
     columns(columns),
     // Fills default map with dots
-    initialMap(rows, std::vector<char>(columns, '.')){
+    initialMap(rows, std::vector<char>(columns, '.')),
+    currentMap(rows, std::vector<char>(columns, '.')),
+    previousMap(rows, std::vector<char>(columns, '.')){
 
     renderer_ = renderer;
     if (renderer_ == nullptr){
@@ -50,7 +52,9 @@ void MapHandler::initializeMap(){
         }
     }
 
+
     // Init currentMap and previousMap as the default one
+    // This causes segmentation fault.
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
             previousMap[i][j] = initialMap[i][j];
