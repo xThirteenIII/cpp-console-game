@@ -37,6 +37,11 @@ void Menu::getSelection(){
                 }
             case KEY_ENTER:
                 
+                // Handle simple selection for now
+                if (selectedItem == 0){
+                     
+                }
+                
         
             default:
                 break;

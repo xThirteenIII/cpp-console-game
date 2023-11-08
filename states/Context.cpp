@@ -47,32 +47,21 @@ void Context::switchState(){
         if (GameManager::GetInstance()->getInputKey() != ERR){
 
             switch (GameManager::GetInstance()->getInputKey()) {
-                case 'm':
-                    setState(new MainMenuState());
-                    break;
-                
                 // TODO: change the input handling, we want to change state just by 
                 // pressing ENTER on the menu options, not by pressing keys.
                 //
-                case 'w':
-                    setState(new GameRunningState());
-                    break;
-                case 'a':
-                    setState(new GameRunningState());
-                    break;
-                case 's':
-                    setState(new GameRunningState());
-                    break;
-                case 'd':
+                case KEY_ENTER:
                     setState(new GameRunningState());
                     break;
                 case 'p':
-                    setState(new PauseState());
+                    // Go into pause menu only if in GameRunningState
+                    if (dynamic_cast<GameRunningState*>(this->currentState_) != nullptr){
+                        setState(new PauseState());
+                    }
                     break;
-                case 'f':
-                    setState(new GameOverState());
-                    break;
-                case 'q':
+
+                    // Use capital Q to quit to avoid accidental key press
+                case 'Q':
                     setState(new QuitGameState());
                     break;
                 default:
@@ -83,20 +72,13 @@ void Context::switchState(){
 }
 
 // run is a request from context
-void Context::run(){
+void Context::runGameLoop(){
 
     // Get game istance
     GameManager* gameManager = GameManager::GetInstance();
 
     // Get map istance
     MapHandler& mapHandler = gameManager->getMapHandler();
-
-    // Get Renderer istance
-    RendererAdapter* renderer = mapHandler.getRenderer();
-
-    // Run render specific initialization
-    // E.g. for the ncurses library, it is needed to initscr()
-    renderer->initialize();
 
     // Game loop, each iteration corresponds to a frame
     // It runs until the player decides to quit either pressing q or 
@@ -140,6 +122,4 @@ void Context::run(){
     }
 
 
-    // Run renderer specific functions, like endwin() for ncurses
-    renderer->finalize();
 }

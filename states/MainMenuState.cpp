@@ -25,7 +25,6 @@ void MainMenuState::enter(){
 void MainMenuState::update(){
     // Handle main menu logic
     mainMenu->getSelection();
-    
 }
 
 void MainMenuState::exit(){

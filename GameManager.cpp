@@ -27,16 +27,26 @@ void GameManager::initialize(){
     mapHandler = MapHandler(this->getSetting("W_HEIGHT"), this->getSetting("W_WIDTH"), nullptr);
     mapHandler.initializeMap();
 
-    // Initialize Player
+    // Initialize Player with default position in [1][1]
+    // Modify default constructor to change starting position
     this->player = new Player();
 }
 
 void GameManager::runGameLoop(){
+
     // implement game loop
     // Init MainMenu as the first state we enter
     Context* context = new Context(new MainMenuState);
-    context->run();
 
+    // Run render specific initialization
+    // E.g. for the ncurses library, it is needed to initscr()
+    this->mapHandler.getRenderer()->initialize();
+
+    context->runGameLoop();
+
+    // Run render specific finalization
+    // E.g. endwin() for ncurses
+    this->mapHandler.getRenderer()->finalize();
 
     delete context;
 }
