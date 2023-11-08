@@ -129,17 +129,16 @@ void Context::run(){
         mapHandler.update(this->currentState_, this->previousState_);
          
        
+
+        // Run State specific final stuff (empty for now)
+        this->currentState_->exit();
+
         // Exit the run() loop thus quitting the game if we're in the QuitGameState
         if (dynamic_cast<QuitGameState*>(this->currentState_) != nullptr) {
             break;
         }
-
-        // Run State specific final stuff (empty for now)
-        this->currentState_->exit();
     }
 
-    // Is this necessary?
-    delete this->previousState_;
 
     // Run renderer specific functions, like endwin() for ncurses
     renderer->finalize();
