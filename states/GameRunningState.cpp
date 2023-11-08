@@ -39,6 +39,7 @@ void GameRunningState::update(Context* context){
                 break;
         }
     }
+    mapHandler.renderMap();
 }
 
 void GameRunningState::exit(){
