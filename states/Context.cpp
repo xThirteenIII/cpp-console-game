@@ -43,7 +43,7 @@ void Context::run(){
 
     Player* player = gameManager->getPlayer();
     MapHandler& mapHandler = gameManager->getMapHandler();
-    //mapHandler.swapMaps();
+    mapHandler.swapMaps();
 
     while (true){
 
@@ -61,22 +61,26 @@ void Context::run(){
                     break;
                 case 'w':
                     setState(new GameRunningState());
-                    // Move up
-                    player->move(1,0);
+                    // Move one row up
+                    // -1 because you want to go one position less: e.g. from [2][1] to [1][1] to go up
+                    player->move(-1,0);
                     break;
                 case 'a':
                     setState(new GameRunningState());
-                    // Move left 
+                    // Move one column left 
+                    // [3][4] to [3][3]
                     player->move(0,-1);
                     break;
                 case 's':
-                    // Move down 
-                    player->move(-1,0);
+                    // Move one row down 
+                    // [3][4] to [4][4]
+                    player->move(1,0);
                     setState(new GameRunningState());
                     break;
                 case 'd':
                     setState(new GameRunningState());
-                    // Move right 
+                    // Move one column right 
+                    // [3][4] to [3][5]
                     player->move(0,1);
                     break;
                 case 'p':
@@ -94,7 +98,7 @@ void Context::run(){
             }
         }
 
-        //mapHandler.update(this->currentState_);
+        mapHandler.update(this->currentState_);
          
        
         if (dynamic_cast<QuitGameState*>(this->currentState_) != nullptr) {

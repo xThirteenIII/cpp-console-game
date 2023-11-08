@@ -13,11 +13,7 @@ Player::Player(int x, int y){
 }
 
 void Player::move(int deltaX, int deltaY){
-   // Check map boundaries
-   if ( (this->x += deltaX < GameManager::GetInstance()->getSetting("W_HEIGHT")) && 
-        (this->y += deltaY < GameManager::GetInstance()->getSetting("W_WIDTH"))
-        ){
+
        this->x += deltaX; 
        this->y += deltaY;
-   }
 }
