@@ -1,5 +1,5 @@
 # cpp-console-game
-Simple text adventure game to train with OOP
+Text adventure console game to train with OOP
 
 Download game file and run ./game in the terminal to start it.
 
