@@ -1,12 +1,12 @@
 #ifndef _WARRIORFACTORY_H_
 #define _WARRIORFACTORY_H_
 #include "AbstractEntityFactory.h"
-#include "AbstractEntityStats.h"
+#include "AbstractEntity.h"
 
 class WarriorFactory: public EntityFactory{
     public:
-        AbstractEntityStats* createCharacter() const override;
-        AbstractEntityStats* createEnemy() const override;
+        AbstractEntity* createCharacter() const override;
+        AbstractEntity* createEnemy() const override;
 
 };
 #endif

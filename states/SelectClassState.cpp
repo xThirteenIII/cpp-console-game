@@ -36,6 +36,7 @@ void SelectClassState::update(Context* context){
         switch (GameManager::GetInstance()->getInputKey()) {
             case '\n':
                 if (selectedItem == 0){
+
                     context->setState(new GameRunningState());
                 }else if (selectedItem == 1){
                     context->setState(new QuitGameState());

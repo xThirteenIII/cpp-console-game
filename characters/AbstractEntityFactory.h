@@ -1,13 +1,13 @@
 #ifndef _ENTITYFACTORY_H_
 #define _ENTITYFACTORY_H_
-#include "AbstractEntityStats.h"
+#include "AbstractEntity.h"
 
 class EntityFactory{
     public:
         // is the destructor necessary?
         // virtual ~EntityFactory() = default;
-        virtual AbstractEntityStats* createCharacter() const = 0;
-        virtual AbstractEntityStats* createEnemy() const = 0;
+        virtual AbstractEntity* createCharacter() const = 0;
+        virtual AbstractEntity* createEnemy() const = 0;
 
 };
 

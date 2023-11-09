@@ -1,15 +1,15 @@
 #include "WarriorFactory.h"
-#include "AbstractEntityStats.h"
-#include "CharacterStats.h"
+#include "AbstractEntity.h"
+#include "PlayerStats.h"
 #include "../GameManager.h"
 #include <random>
 
-AbstractEntityStats* WarriorFactory::createCharacter() const{
+AbstractEntity* WarriorFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
-    return new CharacterStats(25, 15, 5, 90, 1, 1);
+    return new PlayerStats(25, 15, 5, 90, 1, 1);
 }
 
-AbstractEntityStats* WarriorFactory::createEnemy() const{
+AbstractEntity* WarriorFactory::createEnemy() const{
     // Health, Armor, Attack, Precision, x, y
     //
     // Initialize random number generator
@@ -21,5 +21,5 @@ AbstractEntityStats* WarriorFactory::createEnemy() const{
     std::uniform_int_distribution<int> distributionX(2, GameManager::GetInstance()->getSetting("W_HEIGHT"));
     std::uniform_int_distribution<int> distributionY(2, GameManager::GetInstance()->getSetting("W_WIDTH"));
 
-    return new CharacterStats(15, 5, 3, 90, distributionX(gen), distributionY(gen));
+    return new PlayerStats(15, 5, 3, 90, distributionX(gen), distributionY(gen));
 }

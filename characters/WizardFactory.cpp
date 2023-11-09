@@ -1,15 +1,15 @@
 #include "WizardFactory.h"
-#include "AbstractEntityStats.h"
-#include "CharacterStats.h"
+#include "AbstractEntity.h"
+#include "PlayerStats.h"
 #include "../GameManager.h"
 #include <random>
 
-AbstractEntityStats* WizardFactory::createCharacter() const{
+AbstractEntity* WizardFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
-    return new CharacterStats(15, 8, 8, 90, 1, 1);
+    return new PlayerStats(15, 8, 8, 90, 1, 1);
 }
 
-AbstractEntityStats* WizardFactory::createEnemy() const{
+AbstractEntity* WizardFactory::createEnemy() const{
     // Health, Armor, Attack, Precision, x, y
     //
     // Initialize random number generator
@@ -22,5 +22,5 @@ AbstractEntityStats* WizardFactory::createEnemy() const{
     std::uniform_int_distribution<int> distributionY(2, GameManager::GetInstance()->getSetting("W_WIDTH"));
 
     // Health, Armor, Attack, Precision, x, y
-    return new CharacterStats(8, 3, 5, 90, distributionX(gen), distributionY(gen));
+    return new PlayerStats(8, 3, 5, 90, distributionX(gen), distributionY(gen));
 }

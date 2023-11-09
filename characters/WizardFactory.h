@@ -2,12 +2,12 @@
 #define _WIZARDFACTORY_H_
 
 #include "AbstractEntityFactory.h"
-#include "AbstractEntityStats.h"
+#include "AbstractEntity.h"
 
 class WizardFactory: public EntityFactory{
     public:
-        AbstractEntityStats* createCharacter() const override;
-        AbstractEntityStats* createEnemy() const override;
+        AbstractEntity* createCharacter() const override;
+        AbstractEntity* createEnemy() const override;
 
 };
 #endif

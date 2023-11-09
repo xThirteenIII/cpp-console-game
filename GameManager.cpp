@@ -1,5 +1,5 @@
 #include "GameManager.h"
-#include "characters/Player.h"
+#include "characters/AbstractEntity.h"
 #include "states/Context.h"
 #include "states/MainMenuState.h"
 #include "states/MapHandler.h"
@@ -27,9 +27,6 @@ void GameManager::initialize(){
     mapHandler = MapHandler(this->getSetting("W_HEIGHT"), this->getSetting("W_WIDTH"), nullptr);
     mapHandler.initializeMap();
 
-    // Initialize Player with default position in [1][1]
-    // Modify default constructor to change starting position
-    this->player = new Player();
 }
 
 void GameManager::runGameLoop(){
@@ -102,4 +99,24 @@ void GameManager::readInputKey(){
 
 int GameManager::getInputKey(){
     return this->inputKey;
+}
+
+AbstractEntity* GameManager::getPlayer(){
+    return this->player_;
+}
+
+AbstractEntity* GameManager::getNPC(){
+    return this->npc_;
+}
+
+void GameManager::setPlayer(AbstractEntity* player){
+    
+    // Is this assignment correct?
+    this->player_ = player;    
+}
+
+void GameManager::setNPC(AbstractEntity* npc){
+
+    // Is this assignment correct?
+    this->npc_ = npc;    
 }

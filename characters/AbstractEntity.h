@@ -1,14 +1,14 @@
-#ifndef _ABSTRACTENTITYSTATS_H_
-#define _ABSTRACTENTITYSTATS_H_
+#ifndef _ABSTRACTENTITY_H_
+#define _ABSTRACTENTITY_H_
 
 #include <utility>
-class AbstractEntityStats{
+class AbstractEntity{
     public:
         // Defining a default virtual destructor for an abstract class is a good practice when you have virtual
         // functions or any other virtual methods.
         // This ensures that the correct destructors are called when objects 
         // are deleted through pointers to the base class.
-        virtual ~AbstractEntityStats(){};
+        virtual ~AbstractEntity(){};
 
         // Getters
         // Coommon methods between entities

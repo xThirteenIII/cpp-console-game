@@ -1,6 +1,6 @@
 #ifndef _GAMEMANAGER_H_
 #define _GAMEMANAGER_H_
-#include "characters/Player.h"
+#include "characters/AbstractEntity.h"
 #include "states/MapHandler.h"
 #include <map>
 #include <mutex>
@@ -29,7 +29,8 @@ private:
 
    MapHandler mapHandler;
 
-   Player* player;
+   AbstractEntity* player_;
+   AbstractEntity* npc_;
 
 public:
 /** This means that
@@ -53,13 +54,15 @@ public:
 
     
 
-    MapHandler &getMapHandler() {
-        return mapHandler;
-    }
+    MapHandler &getMapHandler();
 
-    Player* getPlayer(){
-        return player;
-    }
+    // These allow to set Player and Enemy stats
+    void setPlayer(AbstractEntity* player);
+    void setNPC(AbstractEntity* npc);
+
+    // These allow to access Player and Enemy stats
+    AbstractEntity* getPlayer();
+    AbstractEntity* getNPC();
 
     void readInputKey();
     int getInputKey();
