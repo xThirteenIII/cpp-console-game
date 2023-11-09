@@ -28,9 +28,10 @@ run this on terminal:
 
 
 Commands:
-- Use arrows to navigate menus
-- Use wasd to move through the map
-- Shift + 'q' to close the game or quit from Main Menu
+- Use <kbd>Arrow Up</kbd>,<kbd>Arrow Down</kbd>,<kbd>Arrow Left</kbd> and <kbd>Arrow Right</kbd> to navigate menus
+- Use <kbd>Enter</kbd> to select
+- Use <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, and <kbd>D</kbd> to move through the map
+- <kbd>Shift</kbd> + <kbd>q</kbd> to close the game or quit from Main Menu
 - Use p to pause game when playing
-- Ctrl + '+' to resize terminal window (cmd + '+' on Mac) if the
+- <kbd>Ctrl</kbd> + <kbd>+</kbd> to resize terminal window (<kbd>Cmd</kbd> + '+' on Mac) if the
   game map is too small
