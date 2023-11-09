@@ -11,11 +11,13 @@ class AbstractEntityStats{
         virtual ~AbstractEntityStats(){};
 
         // Getters
+        // Coommon methods between entities
         virtual int getHealthPoints() const = 0;
         virtual int getArmorPoints() const = 0;
         virtual int getAttackPoints() const = 0;
         virtual int getHitChance() const = 0;
         virtual std::pair<int, int> getPosition() const = 0;
+        virtual void move(int deltaX, int deltaY) = 0;
         
         /** 
          * std::pair is defined as follows:

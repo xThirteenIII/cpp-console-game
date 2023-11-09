@@ -19,6 +19,7 @@ class CharacterStats : public AbstractEntityStats{
         int getAttackPoints() const override;
         int getHitChance() const override;
         std::pair<int, int> getPosition() const override;
+        void move(int deltaX, int deltaY) override;
     
     
 };

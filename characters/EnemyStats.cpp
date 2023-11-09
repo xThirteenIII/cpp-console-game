@@ -1,4 +1,5 @@
 #include "EnemyStats.h"
+#include "../GameManager.h"
 #include <utility>
 
 EnemyStats::EnemyStats(int health, int armor, int attack, int precision, int x, int y):
@@ -32,3 +33,18 @@ std::pair<int, int> EnemyStats::getPosition() const {
     return position;
 }
 
+void EnemyStats::move(int deltaX, int deltaY){
+
+    int boundX = GameManager::GetInstance()->getSetting("W_HEIGHT") - 1;
+    int boundY = GameManager::GetInstance()->getSetting("W_WIDTH") - 1;
+    
+
+   // If the new position is inside the map, move the entity
+   if (((this->positionX_ + deltaX) < boundX && (this->positionX_ + deltaX) > 0) &&
+       ((this->positionY_ + deltaY) < boundY && (this->positionY_ + deltaY) > 0)){
+
+       this->positionX_ += deltaX; 
+       this->positionY_ += deltaY;
+   }
+
+}
