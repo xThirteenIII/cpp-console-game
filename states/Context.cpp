@@ -47,12 +47,6 @@ void Context::switchState(){
         if (GameManager::GetInstance()->getInputKey() != ERR){
 
             switch (GameManager::GetInstance()->getInputKey()) {
-                // TODO: change the input handling, we want to change state just by 
-                // pressing ENTER on the menu options, not by pressing keys.
-                //
-                case KEY_ENTER:
-                    setState(new GameRunningState());
-                    break;
                 case 'p':
                     // Go into pause menu only if in GameRunningState
                     if (dynamic_cast<GameRunningState*>(this->currentState_) != nullptr){
@@ -78,23 +72,20 @@ void Context::runGameLoop(){
     GameManager* gameManager = GameManager::GetInstance();
 
     // Get map istance
-    MapHandler& mapHandler = gameManager->getMapHandler();
+    MapHandler* mapHandler = gameManager->getMapHandler();
 
     // Game loop, each iteration corresponds to a frame
     // It runs until the player decides to quit either pressing q or 
     // selecting quit game from the main menu
     while (true){
 
-        // This allows to keep a previous frame map and a current frame map, useful
-        // for reducing screen flickering and to save states
-        mapHandler.swapMaps();
-        
         // Store key pressed by the user in private inputKey field in the GameManager single istance
         //
         // This must be the only place where to read the input, otherwise it gets latency when pressing 
         // keys 
         gameManager->readInputKey();
 
+        
         // This is needed to clear the screen only if we switch to a different state
         this->previousState_ = this->currentState_;
 
@@ -108,7 +99,7 @@ void Context::runGameLoop(){
         this->currentState_->update(this);
 
         // As for now update just clears screen and calls refresh() to print the render
-        mapHandler.update(this->currentState_, this->previousState_);
+        mapHandler->update(this->currentState_, this->previousState_);
 
         // Run State specific final stuff (empty for now)
         this->currentState_->exit();
@@ -118,6 +109,4 @@ void Context::runGameLoop(){
             break;
         }
     }
-
-
 }

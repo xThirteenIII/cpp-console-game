@@ -1,4 +1,5 @@
 #include "MainMenuState.h"
+#include "SelectClassState.h"
 #include "../ui/Menu.h"
 #include "../GameManager.h"
 #include "Context.h"
@@ -36,7 +37,7 @@ void MainMenuState::update(Context* context){
         switch (GameManager::GetInstance()->getInputKey()) {
             case '\n':
                 if (selectedItem == 0){
-                    context->setState(new GameRunningState());
+                    context->setState(new SelectClassState());
                 }else if (selectedItem == 1){
                     context->setState(new QuitGameState());
                 }

@@ -27,7 +27,7 @@ private:
    // Use a map to store game setting as key-value pairs
    std::map<std::string, int> gameSettings;
 
-   MapHandler mapHandler;
+   MapHandler* mapHandler;
 
    AbstractEntity* player_;
    AbstractEntity* npc_;
@@ -54,7 +54,7 @@ public:
 
     
 
-    MapHandler &getMapHandler();
+    MapHandler* getMapHandler();
 
     // These allow to set Player and Enemy stats
     void setPlayer(AbstractEntity* player);
@@ -78,6 +78,8 @@ public:
 
     // Get a game setting
     int getSetting(const std::string& key);
+
+    void resetGame();
 
     // Clean up settings and libraries
     void finalize();

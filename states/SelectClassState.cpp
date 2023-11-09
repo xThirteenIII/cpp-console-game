@@ -2,6 +2,9 @@
 #include "MainMenuState.h"
 #include "../ui/Menu.h"
 #include "../GameManager.h"
+#include "../characters/AbstractEntityFactory.h"
+#include "../characters/WarriorFactory.h"
+#include "../characters/WizardFactory.h"
 #include "Context.h"
 #include "GameOverState.h"
 #include "GameRunningState.h"
@@ -12,6 +15,7 @@
 #include <vector>
 
 SelectClassState::SelectClassState():classMenu(nullptr){
+
     // If it gives an error is due to using an old c++ std version
     std::vector<std::string> menuItems{"Warrior", "Wizard"};
 
@@ -37,16 +41,26 @@ void SelectClassState::update(Context* context){
             case '\n':
                 if (selectedItem == 0){
 
+                    // Create Warrior player
+                    EntityFactory* warriorFactory = new WarriorFactory();
+                    GameManager::GetInstance()->setPlayer(warriorFactory->createCharacter());
                     context->setState(new GameRunningState());
                 }else if (selectedItem == 1){
-                    context->setState(new QuitGameState());
+
+                    // Create Wizard player
+                    EntityFactory* wizardFactory = new WizardFactory();
+                    GameManager::GetInstance()->setPlayer(wizardFactory->createCharacter());
+                    context->setState(new GameRunningState());
                 }
                 break;
             default:
                 break;
         }
     }
+
+    // Initialize map before starting the game
+    GameManager::GetInstance()->getMapHandler()->initializeMap();
 }
 
-void MainMenuState::exit(){
+void SelectClassState::exit(){
 }

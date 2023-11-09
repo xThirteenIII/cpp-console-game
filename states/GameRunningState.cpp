@@ -1,6 +1,7 @@
 #include "GameRunningState.h"
 #include "PauseState.h"
 #include "../GameManager.h"
+#include "Context.h"
 #include "MapHandler.h"
 #include <iostream>
 
@@ -11,11 +12,17 @@ void GameRunningState::update(Context* context){
     //
     // Move one row up
     // -1 because you want to go one position less: e.g. from [2][1] to [1][1] to go up
-    Player* player = GameManager::GetInstance()->getPlayer();
+    AbstractEntity* player = GameManager::GetInstance()->getPlayer();
 
-    MapHandler& mapHandler = GameManager::GetInstance()->getMapHandler();
-    mapHandler.update(this, this);
 
+    MapHandler* mapHandler = GameManager::GetInstance()->getMapHandler();
+
+    // This allows to keep a previous frame map and a current frame map, useful
+    // for reducing screen flickering and to save states
+    mapHandler->swapMaps();
+    mapHandler->update(this, this);
+
+        
     if (GameManager::GetInstance()->getInputKey() != ERR){
         switch (GameManager::GetInstance()->getInputKey()){
             case 'w':
@@ -42,7 +49,7 @@ void GameRunningState::update(Context* context){
                 break;
         }
     }
-    mapHandler.renderMap();
+    mapHandler->renderMap();
 }
 
 void GameRunningState::exit(){

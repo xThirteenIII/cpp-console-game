@@ -39,10 +39,7 @@ MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer)
             renderer_ = new ConioAdapter();
         #endif
     }
-}
 
-
-void MapHandler::initializeMap(){
     // Fill the walls with #
     for (int i=0; i<rows; i++){
         for (int j=0; j<columns; j++){
@@ -52,6 +49,10 @@ void MapHandler::initializeMap(){
         }
     }
 
+}
+
+
+void MapHandler::initializeMap(){
 
     // Init currentMap and previousMap as the default one
     // This causes segmentation fault.
@@ -78,7 +79,7 @@ void MapHandler::renderMap(){
     GameManager* gameManager = GameManager::GetInstance();
 
     // Update player position
-    currentMap[gameManager->getPlayer()->getX()][gameManager->getPlayer()->getY()]='P';
+    currentMap[gameManager->getPlayer()->getPosition().first][gameManager->getPlayer()->getPosition().second]='P';
 
     // Do i have to do it every frame? Naaaah don't think so
     //renderer_->initialize();
@@ -102,8 +103,8 @@ void MapHandler::swapMaps(){
 
     GameManager* gameManager = GameManager::GetInstance();
 
-    int playerX = gameManager->getPlayer()->getX();
-    int playerY = gameManager->getPlayer()->getY();
+    int playerX = gameManager->getPlayer()->getPosition().first;
+    int playerY = gameManager->getPlayer()->getPosition().second;
 
     // Re-insert a dot in the previous player position
     currentMap[playerX][playerY] = '.';

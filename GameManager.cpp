@@ -24,9 +24,8 @@ GameManager::~GameManager(){};
 
 void GameManager::initialize(){
     // Initialize Map
-    mapHandler = MapHandler(this->getSetting("W_HEIGHT"), this->getSetting("W_WIDTH"), nullptr);
-    mapHandler.initializeMap();
-
+    mapHandler = new MapHandler(GameManager::GetInstance()->getSetting("W_HEIGHT"), GameManager::GetInstance()->getSetting("W_WIDTH"), nullptr);
+    //mapHandler->initialize() is run by the SelectClassState::update() method
 }
 
 void GameManager::runGameLoop(){
@@ -37,13 +36,13 @@ void GameManager::runGameLoop(){
 
     // Run render specific initialization
     // E.g. for the ncurses library, it is needed to initscr()
-    this->mapHandler.getRenderer()->initialize();
+    this->mapHandler->getRenderer()->initialize();
 
     context->runGameLoop();
 
     // Run render specific finalization
     // E.g. endwin() for ncurses
-    this->mapHandler.getRenderer()->finalize();
+    this->mapHandler->getRenderer()->finalize();
 
     delete context;
 }
@@ -88,8 +87,12 @@ int GameManager::getSetting(const std::string &key){
     return -1; // You can choose a default value or handle it differently
 }
 
+MapHandler* GameManager::getMapHandler(){
+    return this->mapHandler;
+}
+
 void GameManager::finalize(){
-    this->mapHandler.finalize();
+    this->mapHandler->finalize();
 }
 
 void GameManager::readInputKey(){
@@ -120,3 +123,10 @@ void GameManager::setNPC(AbstractEntity* npc){
     // Is this assignment correct?
     this->npc_ = npc;    
 }
+
+void GameManager::resetGame(){
+    this->mapHandler->initializeMap();
+    delete this->player_;
+    delete this->npc_;
+}
+

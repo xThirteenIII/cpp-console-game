@@ -35,6 +35,9 @@ void GameOverState::update(Context* context){
                     // TODO: Game Has to reset, this is not correct
                     context->setState(new GameRunningState());
                 }else if (selectedItem == 1){
+
+                    // Reset game and go to main menu
+                    GameManager::GetInstance()->resetGame(); 
                     context->setState(new MainMenuState());
                 }
                 break;
