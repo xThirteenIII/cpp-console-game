@@ -1,7 +1,7 @@
 # cpp-console-game
 
 # Table of Contents
-- [Download](#download-and-run-game-file)
+- [Download and Play](#download-and-run-game-file)
 - [Compile and run](#compile-and-run)
   - [Install dependencies](#install-ncurses-library-first)
   - [Compile .cpp files](#compile-file-from-the-cpp-console-game-directory)
