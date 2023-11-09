@@ -26,6 +26,8 @@ run this on terminal:
 
 `g++ -Wall -std=c++20 -o game -I./states -I./renderer -I./characters -I./ui *.cpp ./states/*.cpp ./renderer/*.cpp ./ui/*.cpp ./characters/*.cpp -lncurses`
 
+3) Run it from terminal:
+`./game`
 
 Commands:
 - Use <kbd>Arrow Up</kbd>,<kbd>Arrow Down</kbd>,<kbd>Arrow Left</kbd> and <kbd>Arrow Right</kbd> to navigate menus
