@@ -23,6 +23,7 @@ run this on terminal:
 `sudo apt-get install libncurses5-dev libncursesw5-dev`
 
 2) Compile file from the cpp-console-game directory:
+
 `g++ -Wall -std=c++20 -o game -I./states -I./renderer -I./characters -I./ui *.cpp ./states/*.cpp ./renderer/*.cpp ./ui/*.cpp ./characters/*.cpp -lncurses`
 
 
