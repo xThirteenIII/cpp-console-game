@@ -11,12 +11,16 @@ If you want to compile the game by yourself, in case the 'game' file doesn't wor
 ---MacOS---
 Install ncurses library from terminal with brew:
 
-```brew install ncurses```
+```bash
+brew install ncurses
+```
 
 ---Linux---
 run this on terminal:
 
-```sudo apt-get install libncurses5-dev libncursesw5-dev```
+```bash
+sudo apt-get install libncurses5-dev libncursesw5-dev
+```
 
 
 Commands:
