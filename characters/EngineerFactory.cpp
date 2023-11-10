@@ -18,8 +18,10 @@ AbstractEntity* EngineerFactory::createEnemy() const{
     
     // Define the range for random positions (adjust as needed)
     // Enemy can be positioned anywhere in the map but on the same player position
-    std::uniform_int_distribution<int> distributionX(2, GameManager::GetInstance()->getSetting("W_HEIGHT"));
-    std::uniform_int_distribution<int> distributionY(2, GameManager::GetInstance()->getSetting("W_WIDTH"));
+    std::uniform_int_distribution<int> distributionX(2, GameManager::GetInstance()->getSetting("W_HEIGHT")-1);
+
+    // Spawn enemy in the right half of the map
+    std::uniform_int_distribution<int> distributionY(GameManager::GetInstance()->getSetting("W_WIDTH")/2, GameManager::GetInstance()->getSetting("W_WIDTH")-2);
 
     return new PlayerStats(15, 5, 3, 90, distributionX(gen), distributionY(gen));
 }

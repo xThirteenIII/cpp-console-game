@@ -44,12 +44,14 @@ void SelectClassState::update(Context* context){
                     // Create Warrior player
                     EntityFactory* engineerFactory = new EngineerFactory();
                     GameManager::GetInstance()->setPlayer(engineerFactory->createCharacter());
+                    GameManager::GetInstance()->setNPC(engineerFactory->createEnemy());
                     context->setState(new GameRunningState());
                 }else if (selectedItem == 1){
 
                     // Create Wizard player
                     EntityFactory* philosopherFactory = new PhilosopherFactory();
                     GameManager::GetInstance()->setPlayer(philosopherFactory->createCharacter());
+                    GameManager::GetInstance()->setNPC(philosopherFactory->createEnemy());
                     context->setState(new GameRunningState());
                 }
                 break;

@@ -81,6 +81,9 @@ void MapHandler::renderMap(){
     // Update player position
     currentMap[gameManager->getPlayer()->getPosition().first][gameManager->getPlayer()->getPosition().second]='P';
 
+    // Update Enemy position
+    currentMap[gameManager->getNPC()->getPosition().first][gameManager->getNPC()->getPosition().second]='E';
+
     // Do i have to do it every frame? Naaaah don't think so
     //renderer_->initialize();
     for (int i = 0; i < rows; i++) {
