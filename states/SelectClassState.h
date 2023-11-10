@@ -1,12 +1,11 @@
 #ifndef _SELECTCLASSSTATE_H_
 #define _SELECTCLASSSTATE_H_
 #include "GameState.h"
-#include "../ui/Menu.h"
+#include "../ui/AbstractMenu.h"
 
 class SelectClassState: public GameState{
     private:
-        Menu* classMenu;
-
+        AbstractMenu* menu_;
     public:
         SelectClassState();
         void enter() override;

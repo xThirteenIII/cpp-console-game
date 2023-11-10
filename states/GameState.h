@@ -8,12 +8,13 @@ class Context;
 
 // GameState is the abstract base class for different game states
 class GameState{
-    protected:
+    private:
         Context* context_;
 
     public:
         virtual ~GameState(){};
         void set_context(Context* context);
+        Context* get_context();
 
 
         // These are operations handled by the GameState

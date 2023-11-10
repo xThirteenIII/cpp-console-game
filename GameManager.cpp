@@ -32,6 +32,8 @@ void GameManager::runGameLoop(){
 
     // implement game loop
     // Init MainMenu as the first state we enter
+    //
+    // does it need to be MainMenuState()?
     Context* context = new Context(new MainMenuState);
 
     // Run render specific initialization

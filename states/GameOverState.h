@@ -2,11 +2,11 @@
 #define _GAMEOVERSTATE_H_
 
 #include "GameState.h"
-#include "../ui/Menu.h"
+#include "../ui/AbstractMenu.h"
 
 class GameOverState : public GameState{
     private:
-        Menu* gameOverMenu;
+        AbstractMenu* menu_;
     public:
         GameOverState();
         void enter() override;

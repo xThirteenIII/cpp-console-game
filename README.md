@@ -3,9 +3,9 @@
 # Table of Contents
 - [Download and Play](#download-and-run-game-file)
 - [Compile and run](#compile-and-run)
-  - [Install dependencies](#install-ncurses-library-first)
-  - [Compile .cpp files](#compile-file-from-the-cpp-console-game-directory)
-  - [Run executable](#run-from-terminal)
+  - [Install dependencies](##install-ncurses-library-first)
+  - [Compile .cpp files](##compile-file-from-the-cpp-console-game-directory)
+  - [Run executable](##run-from-terminal)
 - [Commands](#commands)
 
 Text adventure console game to train with OOP

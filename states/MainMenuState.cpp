@@ -1,8 +1,8 @@
 #include "MainMenuState.h"
-#include "SelectClassState.h"
-#include "../ui/Menu.h"
+#include "../ui/MainMenu.h"
 #include "../GameManager.h"
 #include "Context.h"
+#include "SelectClassState.h"
 #include "GameOverState.h"
 #include "GameRunningState.h"
 #include "GameState.h"
@@ -11,27 +11,19 @@
 #include <string>
 #include <vector>
 
-MainMenuState::MainMenuState():mainMenu(nullptr){
-
-    // If it gives an error is due to using an old c++ std version
-    std::vector<std::string> menuItems{"Start Game", "Quit Game"};
-
-    // Need to do this because it gives errors if i try to initialize
-    // after declaration!
-    //menuItems.push_back("Start Game");
-    //menuItems.push_back("Quit Game");
-
-    mainMenu = new Menu(menuItems);
+MainMenuState::MainMenuState(){
+    CreateMenu* mainMenu = new MainMenu();
+    menu_ = mainMenu->createMenu();
 }
 
 void MainMenuState::enter(){
-    mainMenu->display();
+    menu_->display();
 }
 
 void MainMenuState::update(Context* context){
     // Handle main menu logic
     // 
-    int selectedItem = mainMenu->getSelection();
+    int selectedItem = menu_->getSelected();
 
     if (GameManager::GetInstance()->getInputKey() != ERR){
         switch (GameManager::GetInstance()->getInputKey()) {

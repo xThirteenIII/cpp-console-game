@@ -6,7 +6,6 @@
 #include "MainMenuState.h"
 #include "MapHandler.h"
 #include "PauseState.h"
-#include "../ui/Menu.h"
 #include "../GameManager.h"
 #include "../renderer/NcursesAdapter.h"
 #include <iostream>

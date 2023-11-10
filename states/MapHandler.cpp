@@ -5,7 +5,6 @@
 #include "MainMenuState.h"
 #include "PauseState.h"
 #include "../globals.h"
-#include "../ui/Menu.h"
 #include "../GameManager.h"
 #include "../renderer/NcursesAdapter.h"
 #include <cstddef>

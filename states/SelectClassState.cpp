@@ -1,6 +1,6 @@
 #include "SelectClassState.h"
 #include "MainMenuState.h"
-#include "../ui/Menu.h"
+#include "../ui/SelectClassMenu.h"
 #include "../GameManager.h"
 #include "../characters/AbstractEntityFactory.h"
 #include "../characters/PhilosopherFactory.h"
@@ -14,27 +14,20 @@
 #include <string>
 #include <vector>
 
-SelectClassState::SelectClassState():classMenu(nullptr){
+SelectClassState::SelectClassState(){
 
-    // If it gives an error is due to using an old c++ std version
-    std::vector<std::string> menuItems{"Engineer", "Philosopher"};
-
-    // Need to do this because it gives errors if i try to initialize
-    // after declaration!
-    //menuItems.push_back("Start Game");
-    //menuItems.push_back("Quit Game");
-
-    classMenu = new Menu(menuItems);
+    CreateMenu* classMenu = new SelectClassMenu();
+    menu_ = classMenu->createMenu();
 }
 
 void SelectClassState::enter(){
-    classMenu->display();
+    menu_->display();
 }
 
 void SelectClassState::update(Context* context){
     // Handle main menu logic
     // 
-    int selectedItem = classMenu->getSelection();
+    int selectedItem = menu_->getSelected();
 
     if (GameManager::GetInstance()->getInputKey() != ERR){
         switch (GameManager::GetInstance()->getInputKey()) {

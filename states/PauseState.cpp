@@ -1,5 +1,5 @@
 #include "MainMenuState.h"
-#include "../ui/Menu.h"
+#include "../ui/PauseMenu.h"
 #include "../GameManager.h"
 #include "Context.h"
 #include "GameOverState.h"
@@ -11,21 +11,18 @@
 #include <string>
 #include <vector>
 
-PauseState::PauseState():pauseMenu(nullptr){
-    // If it gives an error is due to using an old c++ std version
-    // Just specify std=c++20 when compiling
-    std::vector<std::string> menuItems{"Resume", "Main Menu"};
-    pauseMenu = new Menu(menuItems);
-
+PauseState::PauseState(){
+    CreateMenu* pauseMenu = new PauseMenu();
+    menu_ = pauseMenu->createMenu();
 }
 
 void PauseState::enter() {
-    pauseMenu->display();
+    menu_->display();
 }
 void PauseState::update(Context* context) {
     // Handle main menu logic
     // 
-    int selectedItem = pauseMenu->getSelection();
+    int selectedItem = menu_->getSelected();
 
     if (GameManager::GetInstance()->getInputKey() != ERR){
         switch (GameManager::GetInstance()->getInputKey()) {

@@ -1,6 +1,7 @@
 #include "GameOverState.h"
 #include "MainMenuState.h"
-#include "../ui/Menu.h"
+#include "../ui/GameOverMenu.h"
+#include "../ui/MainMenu.h"
 #include "../GameManager.h"
 #include "Context.h"
 #include "GameOverState.h"
@@ -12,21 +13,19 @@
 #include <vector>
 
 
-GameOverState::GameOverState():gameOverMenu(nullptr){
-    // If it gives an error is due to using an old c++ std version
-    // Just specify std=c++20 when compiling
-    std::vector<std::string> menuItems{"Retry", "Main Menu"};
-    gameOverMenu = new Menu(menuItems);
+GameOverState::GameOverState(){
+    CreateMenu* gameOverMenu = new GameOverMenu();
+    menu_ = gameOverMenu->createMenu();
 
 }
 
 void GameOverState::enter(){
-    gameOverMenu->display();
+    menu_->display();
 }
 void GameOverState::update(Context* context){
     // Handle main menu logic
     // 
-    int selectedItem = gameOverMenu->getSelection();
+    int selectedItem = menu_->getSelected();
 
     if (GameManager::GetInstance()->getInputKey() != ERR){
         switch (GameManager::GetInstance()->getInputKey()) {

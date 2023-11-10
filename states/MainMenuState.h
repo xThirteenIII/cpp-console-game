@@ -2,12 +2,13 @@
 #define _MAINMENUSTATE_H_
 
 #include "GameState.h"
-#include "../ui/Menu.h"
+#include "../ui/AbstractMenu.h"
+#include "../ui/CreateMenu.h"
 #include <vector>
 
+
 class MainMenuState: public GameState{
-    private:
-        Menu* mainMenu;
+        AbstractMenu* menu_;
     public:
         MainMenuState();
         void enter() override;
