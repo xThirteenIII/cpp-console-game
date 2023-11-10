@@ -1,15 +1,15 @@
-#include "WizardFactory.h"
+#include "PhilosopherFactory.h"
 #include "AbstractEntity.h"
 #include "PlayerStats.h"
 #include "../GameManager.h"
 #include <random>
 
-AbstractEntity* WizardFactory::createCharacter() const{
+AbstractEntity* PhilosopherFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
     return new PlayerStats(15, 8, 8, 90, 1, 1);
 }
 
-AbstractEntity* WizardFactory::createEnemy() const{
+AbstractEntity* PhilosopherFactory::createEnemy() const{
     // Health, Armor, Attack, Precision, x, y
     //
     // Initialize random number generator

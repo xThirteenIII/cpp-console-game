@@ -31,7 +31,7 @@ Install with brew:
 `brew install ncurses`
 
 
----Linux--- 🐧
+---Linux--- 🐧  (Ubuntu/Debian)
 
 run this on terminal:
 

@@ -3,8 +3,8 @@
 #include "../ui/Menu.h"
 #include "../GameManager.h"
 #include "../characters/AbstractEntityFactory.h"
-#include "../characters/WarriorFactory.h"
-#include "../characters/WizardFactory.h"
+#include "../characters/PhilosopherFactory.h"
+#include "../characters/EngineerFactory.h"
 #include "Context.h"
 #include "GameOverState.h"
 #include "GameRunningState.h"
@@ -17,7 +17,7 @@
 SelectClassState::SelectClassState():classMenu(nullptr){
 
     // If it gives an error is due to using an old c++ std version
-    std::vector<std::string> menuItems{"Warrior", "Wizard"};
+    std::vector<std::string> menuItems{"Engineer", "Philosopher"};
 
     // Need to do this because it gives errors if i try to initialize
     // after declaration!
@@ -42,14 +42,14 @@ void SelectClassState::update(Context* context){
                 if (selectedItem == 0){
 
                     // Create Warrior player
-                    EntityFactory* warriorFactory = new WarriorFactory();
-                    GameManager::GetInstance()->setPlayer(warriorFactory->createCharacter());
+                    EntityFactory* engineerFactory = new EngineerFactory();
+                    GameManager::GetInstance()->setPlayer(engineerFactory->createCharacter());
                     context->setState(new GameRunningState());
                 }else if (selectedItem == 1){
 
                     // Create Wizard player
-                    EntityFactory* wizardFactory = new WizardFactory();
-                    GameManager::GetInstance()->setPlayer(wizardFactory->createCharacter());
+                    EntityFactory* philosopherFactory = new PhilosopherFactory();
+                    GameManager::GetInstance()->setPlayer(philosopherFactory->createCharacter());
                     context->setState(new GameRunningState());
                 }
                 break;

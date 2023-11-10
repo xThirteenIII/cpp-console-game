@@ -28,6 +28,7 @@ int NPCStats::getHitChance() const {
 }
 
 std::pair<int, int> NPCStats::getPosition() const {
+
     // It gives an error if you compile with older c++ standard
     std::pair<int, int> position = {positionX_, positionY_};
     return position;

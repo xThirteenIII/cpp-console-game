@@ -1,15 +1,15 @@
-#include "WarriorFactory.h"
+#include "EngineerFactory.h"
 #include "AbstractEntity.h"
 #include "PlayerStats.h"
 #include "../GameManager.h"
 #include <random>
 
-AbstractEntity* WarriorFactory::createCharacter() const{
+AbstractEntity* EngineerFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
     return new PlayerStats(25, 15, 5, 90, 1, 1);
 }
 
-AbstractEntity* WarriorFactory::createEnemy() const{
+AbstractEntity* EngineerFactory::createEnemy() const{
     // Health, Armor, Attack, Precision, x, y
     //
     // Initialize random number generator
