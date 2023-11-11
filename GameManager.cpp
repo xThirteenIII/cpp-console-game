@@ -1,5 +1,5 @@
 #include "GameManager.h"
-#include "characters/AbstractEntity.h"
+#include "characters//factory/AbstractEntity.h"
 #include "states/Context.h"
 #include "states/MainMenuState.h"
 #include "states/MapHandler.h"
@@ -12,20 +12,19 @@
 #include <conio.h>
 #endif
 
-GameManager* GameManager::instance_=nullptr;
-std::mutex GameManager::mutex_;
-
 // Constructor
 GameManager::GameManager(){};
 
 // No args deconstructor
 GameManager::~GameManager(){};
 
+GameManager* GameManager::instance_=nullptr;
+std::mutex GameManager::mutex_;
 
 void GameManager::initialize(){
     // Initialize Map
-    mapHandler = new MapHandler(GameManager::GetInstance()->getSetting("W_HEIGHT"), GameManager::GetInstance()->getSetting("W_WIDTH"), nullptr);
-    //mapHandler->initialize() is run by the SelectClassState::update() method
+    mapHandler_ = new MapHandler(GameManager::GetInstance()->getSetting("W_HEIGHT"), GameManager::GetInstance()->getSetting("W_WIDTH"), nullptr);
+    //mapHandler_->initialize() is run by the SelectClassState::update() method
 }
 
 void GameManager::runGameLoop(){
@@ -38,13 +37,13 @@ void GameManager::runGameLoop(){
 
     // Run render specific initialization
     // E.g. for the ncurses library, it is needed to initscr()
-    this->mapHandler->getRenderer()->initialize();
+    this->mapHandler_->getRenderer()->initialize();
 
     context->runGameLoop();
 
     // Run render specific finalization
     // E.g. endwin() for ncurses
-    this->mapHandler->getRenderer()->finalize();
+    this->mapHandler_->getRenderer()->finalize();
 
     delete context;
 }
@@ -72,14 +71,14 @@ GameManager* GameManager::GetInstance(){
 
 void GameManager::setSetting(const std::string &key, const int &value){
     std::lock_guard<std::mutex> lock(mutex_);
-    gameSettings[key] = value;
+    gameSettings_[key] = value;
 }
 
 int GameManager::getSetting(const std::string &key){
     std::lock_guard<std::mutex> lock(mutex_);
     // this returns an iterator to the element if the key is found, or it returns an iterator equal to gameSettings.end() if the key is not found.
-    auto iterator = gameSettings.find(key);
-    if (iterator != gameSettings.end()){
+    auto iterator = gameSettings_.find(key);
+    if (iterator != gameSettings_.end()){
 
         //In a std::map, the first part of the pair is the key, and the second part is the value.
         //So, this line returns the value corresponding to the found key.
@@ -90,20 +89,20 @@ int GameManager::getSetting(const std::string &key){
 }
 
 MapHandler* GameManager::getMapHandler(){
-    return this->mapHandler;
+    return this->mapHandler_;
 }
 
 void GameManager::finalize(){
-    this->mapHandler->finalize();
+    this->mapHandler_->finalize();
 }
 
 void GameManager::readInputKey(){
     timeout(3);
-    this->inputKey = getch();
+    this->inputKey_ = getch();
 }
 
 int GameManager::getInputKey(){
-    return this->inputKey;
+    return this->inputKey_;
 }
 
 AbstractEntity* GameManager::getPlayer(){
@@ -127,7 +126,7 @@ void GameManager::setNPC(AbstractEntity* npc){
 }
 
 void GameManager::resetGame(){
-    this->mapHandler->initializeMap();
+    this->mapHandler_->initializeMap();
     delete this->player_;
     delete this->npc_;
 }

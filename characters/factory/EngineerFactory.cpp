@@ -1,7 +1,7 @@
 #include "EngineerFactory.h"
 #include "AbstractEntity.h"
 #include "PlayerStats.h"
-#include "../GameManager.h"
+#include "../../GameManager.h"
 #include <random>
 
 AbstractEntity* EngineerFactory::createCharacter() const{

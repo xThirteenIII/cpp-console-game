@@ -18,17 +18,17 @@
 #endif
 
 // Default constructor
-MapHandler::MapHandler():rows(20), columns(10), renderer_(nullptr){
+MapHandler::MapHandler():rows_(20), columns_(10), renderer_(nullptr){
 
 }
 
 MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer)
-    : rows(rows),
-    columns(columns),
+    : rows_(rows),
+    columns_(columns),
     // Fills default map with dots
-    initialMap(rows, std::vector<char>(columns, '.')),
-    currentMap(rows, std::vector<char>(columns, '.')),
-    previousMap(rows, std::vector<char>(columns, '.')){
+    initialMap_(rows, std::vector<char>(columns, '.')),
+    currentMap_(rows, std::vector<char>(columns, '.')),
+    previousMap_(rows, std::vector<char>(columns, '.')){
 
     renderer_ = renderer;
     if (renderer_ == nullptr){
@@ -43,7 +43,7 @@ MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer)
     for (int i=0; i<rows; i++){
         for (int j=0; j<columns; j++){
             if (i == 0 || i == rows - 1 || j == 0 || j == columns - 1) {
-                initialMap[i][j] = '#';
+                initialMap_[i][j] = '#';
             }
         }
     }
@@ -55,10 +55,10 @@ void MapHandler::initializeMap(){
 
     // Init currentMap and previousMap as the default one
     // This causes segmentation fault.
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            previousMap[i][j] = initialMap[i][j];
-            currentMap[i][j]= initialMap[i][j];
+    for (int i = 0; i < rows_; i++) {
+        for (int j = 0; j < columns_; j++) {
+            previousMap_[i][j] = initialMap_[i][j];
+            currentMap_[i][j]= initialMap_[i][j];
         }
     }
 }
@@ -78,16 +78,16 @@ void MapHandler::renderMap(){
     GameManager* gameManager = GameManager::GetInstance();
 
     // Update player position
-    currentMap[gameManager->getPlayer()->getPosition().first][gameManager->getPlayer()->getPosition().second]='P';
+    currentMap_[gameManager->getPlayer()->getPosition().first][gameManager->getPlayer()->getPosition().second]='P';
 
     // Update Enemy position
-    currentMap[gameManager->getNPC()->getPosition().first][gameManager->getNPC()->getPosition().second]='E';
+    currentMap_[gameManager->getNPC()->getPosition().first][gameManager->getNPC()->getPosition().second]='E';
 
     // Do i have to do it every frame? Naaaah don't think so
     //renderer_->initialize();
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-                char mapChar = currentMap[i][j];
+    for (int i = 0; i < rows_; i++) {
+        for (int j = 0; j < columns_; j++) {
+                char mapChar = currentMap_[i][j];
                 mvprintw(i, j, "%c", mapChar);
         }
     }
@@ -109,12 +109,12 @@ void MapHandler::swapMaps(){
     int playerY = gameManager->getPlayer()->getPosition().second;
 
     // Re-insert a dot in the previous player position
-    currentMap[playerX][playerY] = '.';
+    currentMap_[playerX][playerY] = '.';
 
     // Copy the current map into the previous map
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            previousMap[i][j] = currentMap[i][j];
+    for (int i = 0; i < rows_; i++) {
+        for (int j = 0; j < columns_; j++) {
+            previousMap_[i][j] = currentMap_[i][j];
         }
     }
 

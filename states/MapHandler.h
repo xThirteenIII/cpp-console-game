@@ -11,18 +11,18 @@
 
 class MapHandler{
 private:
-    int rows;
-    int columns;
+    int rows_;
+    int columns_;
 
 
     // Default map, useful for when the game resets
-    std::vector< std::vector<char> > initialMap;
+    std::vector< std::vector<char> > initialMap_;
 
     // Current state map, stores the currently displayed state
-    std::vector< std::vector<char> > currentMap;
+    std::vector< std::vector<char> > currentMap_;
 
     // Previous state map, it will be swapped with current in the update() method
-    std::vector< std::vector<char> > previousMap;
+    std::vector< std::vector<char> > previousMap_;
 
     RendererAdapter* renderer_;
 
