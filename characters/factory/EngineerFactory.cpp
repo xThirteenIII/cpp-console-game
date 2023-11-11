@@ -1,12 +1,12 @@
 #include "EngineerFactory.h"
 #include "AbstractEntity.h"
-#include "PlayerStats.h"
+#include "PlayerObject.h"
 #include "../../GameManager.h"
 #include <random>
 
 AbstractEntity* EngineerFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
-    return new PlayerStats(25, 15, 5, 90, 1, 1);
+    return new PlayerObject(25, 15, 5, 90, 1, 1);
 }
 
 AbstractEntity* EngineerFactory::createEnemy() const{
@@ -23,5 +23,5 @@ AbstractEntity* EngineerFactory::createEnemy() const{
     // Spawn enemy in the right half of the map
     std::uniform_int_distribution<int> distributionY(GameManager::GetInstance()->getSetting("W_WIDTH")/2, GameManager::GetInstance()->getSetting("W_WIDTH")-2);
 
-    return new PlayerStats(15, 5, 3, 90, distributionX(gen), distributionY(gen));
+    return new PlayerObject(15, 5, 3, 90, distributionX(gen), distributionY(gen));
 }

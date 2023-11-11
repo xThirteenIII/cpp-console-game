@@ -1,8 +1,8 @@
-#include "PlayerStats.h"
-#include "../GameManager.h"
+#include "PlayerObject.h"
+#include "../../GameManager.h"
 #include <utility>
 
-PlayerStats::PlayerStats(int health, int armor, int attack, int precision, int x, int y):
+PlayerObject::PlayerObject(int health, int armor, int attack, int precision, int x, int y):
                 healthPoints_(health),
                 armorPoints_(armor),
                 attackPoints_(attack),
@@ -13,27 +13,27 @@ PlayerStats::PlayerStats(int health, int armor, int attack, int precision, int x
 }
 
 
-int PlayerStats::getHealthPoints() const {
+int PlayerObject::getHealthPoints() const {
     return healthPoints_;
 }
-int PlayerStats::getArmorPoints() const {
+int PlayerObject::getArmorPoints() const {
     return armorPoints_;
 }
-int PlayerStats::getAttackPoints() const {
+int PlayerObject::getAttackPoints() const {
     return attackPoints_;
 
 }
-int PlayerStats::getHitChance() const {
+int PlayerObject::getHitChance() const {
     return hitChance_;
 }
 
-std::pair<int, int> PlayerStats::getPosition() const {
+std::pair<int, int> PlayerObject::getPosition() const {
     // It gives an error if you compile with older c++ standard
     std::pair<int, int> position = {positionX_, positionY_};
     return position;
 }
 
-void PlayerStats::move(int deltaX, int deltaY){
+void PlayerObject::move(int deltaX, int deltaY){
 
     int boundX = GameManager::GetInstance()->getSetting("W_HEIGHT") - 1;
     int boundY = GameManager::GetInstance()->getSetting("W_WIDTH") - 1;

@@ -1,12 +1,12 @@
 #include "PhilosopherFactory.h"
 #include "AbstractEntity.h"
-#include "PlayerStats.h"
-#include "../GameManager.h"
+#include "PlayerObject.h"
+#include "../../GameManager.h"
 #include <random>
 
 AbstractEntity* PhilosopherFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
-    return new PlayerStats(15, 8, 8, 90, 1, 1);
+    return new PlayerObject(15, 8, 8, 90, 1, 1);
 }
 
 AbstractEntity* PhilosopherFactory::createEnemy() const{
@@ -25,5 +25,5 @@ AbstractEntity* PhilosopherFactory::createEnemy() const{
 
 
     // Health, Armor, Attack, Precision, x, y
-    return new PlayerStats(8, 3, 5, 90, distributionX(gen), distributionY(gen));
+    return new PlayerObject(8, 3, 5, 90, distributionX(gen), distributionY(gen));
 }

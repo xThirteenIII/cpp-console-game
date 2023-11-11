@@ -1,8 +1,8 @@
-#include "NPCStats.h"
-#include "../GameManager.h"
+#include "NPCObject.h"
+#include "../../GameManager.h"
 #include <utility>
 
-NPCStats::NPCStats(int health, int armor, int attack, int precision, int x, int y):
+NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, int y):
                 healthPoints_(health),
                 armorPoints_(armor),
                 attackPoints_(attack),
@@ -13,28 +13,28 @@ NPCStats::NPCStats(int health, int armor, int attack, int precision, int x, int 
 }
 
 
-int NPCStats::getHealthPoints() const {
+int NPCObject::getHealthPoints() const {
     return healthPoints_;
 }
-int NPCStats::getArmorPoints() const {
+int NPCObject::getArmorPoints() const {
     return armorPoints_;
 }
-int NPCStats::getAttackPoints() const {
+int NPCObject::getAttackPoints() const {
     return attackPoints_;
 
 }
-int NPCStats::getHitChance() const {
+int NPCObject::getHitChance() const {
     return hitChance_;
 }
 
-std::pair<int, int> NPCStats::getPosition() const {
+std::pair<int, int> NPCObject::getPosition() const {
 
     // It gives an error if you compile with older c++ standard
     std::pair<int, int> position = {positionX_, positionY_};
     return position;
 }
 
-void NPCStats::move(int deltaX, int deltaY){
+void NPCObject::move(int deltaX, int deltaY){
 
     int boundX = GameManager::GetInstance()->getSetting("W_HEIGHT") - 1;
     int boundY = GameManager::GetInstance()->getSetting("W_WIDTH") - 1;

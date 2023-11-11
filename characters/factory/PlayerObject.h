@@ -1,9 +1,9 @@
-#ifndef _NPCSTATS_H_
-#define _NPCSTATS_H_
+#ifndef _PLAYEROBJECT_H_
+#define _PLAYEROBJECT_H_
 #include "AbstractEntity.h"
 #include <utility>
 
-class NPCStats : public AbstractEntity{
+class PlayerObject : public AbstractEntity{
     private:
         int healthPoints_;
         int armorPoints_;
@@ -13,7 +13,7 @@ class NPCStats : public AbstractEntity{
         int positionY_; 
 
     public:
-        NPCStats(int health, int armor, int attack, int precision, int x, int y);
+        PlayerObject(int health, int armor, int attack, int precision, int x, int y);
         int getHealthPoints() const override;
         int getArmorPoints() const override;
         int getAttackPoints() const override;
