@@ -39,13 +39,48 @@ int MenuItems::getSelected(){
 }
 
 void MenuItems::display() const{
+// Ignore error due to older c++ standard
+const char* gameBoyArt = R"(
+    ______________________________
+   | oON                          |
+   | .--------------------------. |
+   | |  .--------------------.  | |
+   | |  |                    |  | |
+   | |))|                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  '--------------------'  | |
+   | |__GAME BOY________________/ |
+   |               ________       |
+   |    .            (13)         |
+   |  _| |_        """"""""  .-.  |
+   |-[_   _]-           .-. (   ) |
+   |   |_|             (   ) '-'  |
+   |    '               '-'   A   |
+   |                     B        |
+   |              ___   ___       |
+   |             (___) (___)  ,., |
+   |            select start ;:;: |
+   |                        ,;:;' /
+   |                       ,:;:'.'
+   '---------------------------`
+)";
+    
+    mvprintw(0,0,"%s", gameBoyArt);
+            
     for (size_t i=0; i < items_.size(); i++){
         if (static_cast<int>(i) == this->selectedItem_){
             // Highlight selected item
             // TODO: create a method in NcursesAdapter that handles this mvprintw
-            mvprintw(i, 0, ">> %s", items_[i].c_str());
+            mvprintw(5+i, 9, ">> %s", items_[i].c_str());
         } else {
-            mvprintw(i, 0, "   %s", items_[i].c_str());
+            mvprintw(5+i, 9, "   %s", items_[i].c_str());
         }
     }
     
