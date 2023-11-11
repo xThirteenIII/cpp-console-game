@@ -6,7 +6,7 @@
 
 AbstractEntity* EngineerFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
-    return new PlayerObject(25, 15, 5, 90, 1, 1);
+    return new PlayerObject(25, 15, 5, 90, 0, 0);
 }
 
 AbstractEntity* EngineerFactory::createEnemy() const{
@@ -18,10 +18,10 @@ AbstractEntity* EngineerFactory::createEnemy() const{
     
     // Define the range for random positions (adjust as needed)
     // Enemy can be positioned anywhere in the map but on the same player position
-    std::uniform_int_distribution<int> distributionX(2, GameManager::GetInstance()->getSetting("W_HEIGHT")-2);
+    std::uniform_int_distribution<int> distributionX(1, GameManager::GetInstance()->getSetting("W_HEIGHT")-1);
 
     // Spawn enemy in the right half of the map
-    std::uniform_int_distribution<int> distributionY(GameManager::GetInstance()->getSetting("W_WIDTH")/2, GameManager::GetInstance()->getSetting("W_WIDTH")-2);
+    std::uniform_int_distribution<int> distributionY(GameManager::GetInstance()->getSetting("W_WIDTH")/2, GameManager::GetInstance()->getSetting("W_WIDTH")-1);
 
     return new PlayerObject(15, 5, 3, 90, distributionX(gen), distributionY(gen));
 }

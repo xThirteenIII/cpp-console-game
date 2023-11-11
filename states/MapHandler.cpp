@@ -17,6 +17,39 @@
 #include <conio.h>
 #endif
 
+// Ignore error due to older c++ standard
+const char* gameBoyArt = R"(
+    ______________________________
+   | oON                          |
+   | .--------------------------. |
+   | |  .--------------------.  | |
+   | |  |                    |  | |
+   | |))|                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  |                    |  | |
+   | |  '--------------------'  | |
+   | |__GAME BOY________________/ |
+   |               ________       |
+   |    .            (13)         |
+   |  _| |_        """"""""  .-.  |
+   |-[_   _]-           .-. (   ) |
+   |   |_|             (   ) '-'  |
+   |    '               '-'   A   |
+   |                     B        |
+   |              ___   ___       |
+   |             (___) (___)  ,., |
+   |            select start ;:;: |
+   |                        ,;:;' /
+   |                       ,:;:'.'
+   '---------------------------`
+)";
+
 // Default constructor
 MapHandler::MapHandler():rows_(20), columns_(10), renderer_(nullptr){
 
@@ -39,11 +72,11 @@ MapHandler::MapHandler(int rows, int columns, RendererAdapter* renderer)
         #endif
     }
 
-    // Fill the walls with #
+    // Fill the walls with .
     for (int i=0; i<rows; i++){
         for (int j=0; j<columns; j++){
             if (i == 0 || i == rows - 1 || j == 0 || j == columns - 1) {
-                initialMap_[i][j] = '#';
+                initialMap_[i][j] = '.';
             }
         }
     }
@@ -75,6 +108,9 @@ void MapHandler::update(GameState* currentState, GameState* previousState){
 }
 
 void MapHandler::renderMap(){
+    mvprintw(0,0,"%s", gameBoyArt);
+    int gameBoyStartX = 5;
+    int gameBoyStartY = 9;
     GameManager* gameManager = GameManager::GetInstance();
 
     // Update player position
@@ -83,12 +119,10 @@ void MapHandler::renderMap(){
     // Update Enemy position
     currentMap_[gameManager->getNPC()->getPosition().first][gameManager->getNPC()->getPosition().second]='E';
 
-    // Do i have to do it every frame? Naaaah don't think so
-    //renderer_->initialize();
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < columns_; j++) {
                 char mapChar = currentMap_[i][j];
-                mvprintw(i, j, "%c", mapChar);
+                mvprintw(gameBoyStartX+i, gameBoyStartY+j, "%c", mapChar);
         }
     }
 }

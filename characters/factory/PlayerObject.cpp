@@ -35,13 +35,13 @@ std::pair<int, int> PlayerObject::getPosition() const {
 
 void PlayerObject::move(int deltaX, int deltaY){
 
-    int boundX = GameManager::GetInstance()->getSetting("W_HEIGHT") - 1;
-    int boundY = GameManager::GetInstance()->getSetting("W_WIDTH") - 1;
+    int boundX = GameManager::GetInstance()->getSetting("W_HEIGHT");
+    int boundY = GameManager::GetInstance()->getSetting("W_WIDTH");
     
 
    // If the new position is inside the map, move the entity
-   if (((this->positionX_ + deltaX) < boundX && (this->positionX_ + deltaX) > 0) &&
-       ((this->positionY_ + deltaY) < boundY && (this->positionY_ + deltaY) > 0)){
+   if (((this->positionX_ + deltaX) < boundX && (this->positionX_ + deltaX) >= 0) &&
+       ((this->positionY_ + deltaY) < boundY && (this->positionY_ + deltaY) >= 0)){
 
        this->positionX_ += deltaX; 
        this->positionY_ += deltaY;
