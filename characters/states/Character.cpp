@@ -18,3 +18,11 @@ void Character::setState(CharacterState* newState){
     }
     this->currentState_ = newState;
 }
+
+CharacterState* Character::getCurrentState() const{
+    return this->currentState_;
+}
+
+CharacterState* Character::getPreviousState() const{
+    return this->previousState_;
+}

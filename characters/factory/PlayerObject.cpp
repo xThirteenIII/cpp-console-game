@@ -27,6 +27,19 @@ int PlayerObject::getHitChance() const {
     return hitChance_;
 }
 
+void PlayerObject::setState(CharacterState* newState) {
+    this->characterState_->setState(newState);
+}
+
+
+CharacterState* PlayerObject::getCurrentState() const {
+    return this->characterState_->getCurrentState();
+}
+
+CharacterState* PlayerObject::getPreviousState() const {
+    return this->characterState_->getPreviousState();
+}
+
 std::pair<int, int> PlayerObject::getPosition() const {
     // It gives an error if you compile with older c++ standard
     std::pair<int, int> position = {positionX_, positionY_};

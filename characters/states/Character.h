@@ -9,4 +9,6 @@ class Character{
         ~Character();
 
         void setState(CharacterState* newState);
+        CharacterState* getCurrentState() const;
+        CharacterState* getPreviousState() const;
 };

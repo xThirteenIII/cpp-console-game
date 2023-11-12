@@ -1,6 +1,7 @@
 #ifndef _PLAYEROBJECT_H_
 #define _PLAYEROBJECT_H_
 #include "AbstractEntity.h"
+#include "../states/Character.h"
 #include <utility>
 
 class PlayerObject : public AbstractEntity{
@@ -11,6 +12,7 @@ class PlayerObject : public AbstractEntity{
         int hitChance_;
         int positionX_; 
         int positionY_; 
+        Character* characterState_;
 
     public:
         PlayerObject(int health, int armor, int attack, int precision, int x, int y);
@@ -18,6 +20,9 @@ class PlayerObject : public AbstractEntity{
         int getArmorPoints() const override;
         int getAttackPoints() const override;
         int getHitChance() const override;
+        void setState(CharacterState* newState) override;
+        CharacterState* getCurrentState() const override;
+        CharacterState* getPreviousState() const override;
         std::pair<int, int> getPosition() const override;
         void move(int deltaX, int deltaY) override;
     

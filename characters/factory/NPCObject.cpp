@@ -1,5 +1,6 @@
 #include "NPCObject.h"
 #include "../../GameManager.h"
+#include "../states/CharacterState.h"
 #include <utility>
 
 NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, int y):
@@ -8,8 +9,10 @@ NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, in
                 attackPoints_(attack),
                 hitChance_(precision),
                 positionX_(x),
-                positionY_(y){
-
+                positionY_(y),
+                characterState_(nullptr){
+                // Character constructor with no args sets state to Idle
+    this->characterState_ = new Character();
 }
 
 
@@ -27,12 +30,26 @@ int NPCObject::getHitChance() const {
     return hitChance_;
 }
 
+void NPCObject::setState(CharacterState* newState) {
+    this->characterState_->setState(newState);
+}
+
+CharacterState* NPCObject::getCurrentState() const {
+    return this->characterState_->getCurrentState();
+}
+
+CharacterState* NPCObject::getPreviousState() const {
+    return this->characterState_->getPreviousState();
+}
+
+
 std::pair<int, int> NPCObject::getPosition() const {
 
     // It gives an error if you compile with older c++ standard
     std::pair<int, int> position = {positionX_, positionY_};
     return position;
 }
+
 
 void NPCObject::move(int deltaX, int deltaY){
 
