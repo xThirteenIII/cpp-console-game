@@ -10,6 +10,7 @@
 class MainMenuState: public GameState{
         AbstractMenu* menu_;
     public:
+        // Should i have a default destructor that overrides the virtual one of GameState?
         MainMenuState();
         void enter() override;
         void update(Context* context) override;

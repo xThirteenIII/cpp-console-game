@@ -1,6 +1,7 @@
 #ifndef _NPCOBJECT_H_
 #define _NPCOBJECT_H_
 #include "AbstractEntity.h"
+#include "../states/CharacterState.h"
 #include <utility>
 
 class NPCObject : public AbstractEntity{

@@ -2,6 +2,8 @@
 #define _ABSTRACTENTITY_H_
 
 #include <utility>
+#include "../states/CharacterState.h"
+
 class AbstractEntity{
     public:
         // Defining a default virtual destructor for an abstract class is a good practice when you have virtual
@@ -16,6 +18,7 @@ class AbstractEntity{
         virtual int getArmorPoints() const = 0;
         virtual int getAttackPoints() const = 0;
         virtual int getHitChance() const = 0;
+        virtual CharacterState* getCurrentState() const = 0;
         virtual std::pair<int, int> getPosition() const = 0;
         virtual void move(int deltaX, int deltaY) = 0;
         

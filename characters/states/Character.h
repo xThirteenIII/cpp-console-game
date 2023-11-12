@@ -9,8 +9,4 @@ class Character{
         ~Character();
 
         void setState(CharacterState* newState);
-
-        void enter();
-        void update();
-        void exit();
 };
