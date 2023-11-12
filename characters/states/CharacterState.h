@@ -3,8 +3,13 @@
 
 #include "../factory/AbstractEntity.h"
 
-class CharacterState{
+class Character;
 
+class CharacterState{
+    public:
+        virtual void enter() = 0;
+        virtual void update(Character* character) = 0;
+        virtual void exit() = 0;
 };
 #endif
 
