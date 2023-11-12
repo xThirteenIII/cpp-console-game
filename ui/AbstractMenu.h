@@ -3,6 +3,8 @@
 
 #include <utility>
 #include <vector>
+#include <string>
+
 class AbstractMenu{
     public:
         // Defining a default virtual destructor for an abstract class is a good practice when you have virtual
