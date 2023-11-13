@@ -2,7 +2,6 @@
 #define _NPCOBJECT_H_
 #include "AbstractEntity.h"
 #include "../states/CharacterState.h"
-#include "../states/Character.h"
 #include <utility>
 
 class NPCObject : public AbstractEntity{
@@ -13,7 +12,7 @@ class NPCObject : public AbstractEntity{
         int hitChance_;
         int positionX_; 
         int positionY_; 
-        Character* characterState_;
+        CharacterState* characterState_;
 
     public:
         NPCObject(int health, int armor, int attack, int precision, int x, int y);
@@ -21,13 +20,10 @@ class NPCObject : public AbstractEntity{
         int getArmorPoints() const override;
         int getAttackPoints() const override;
         int getHitChance() const override;
+        void setState(CharacterState* newState) override;
         CharacterState* getCurrentState() const override;
         CharacterState* getPreviousState() const override;
-        void setState(CharacterState* newState) override;
         std::pair<int, int> getPosition() const override;
         void move(int deltaX, int deltaY) override;
-    
-    
 };
-
 #endif

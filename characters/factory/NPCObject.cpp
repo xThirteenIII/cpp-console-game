@@ -1,6 +1,7 @@
 #include "NPCObject.h"
 #include "../../GameManager.h"
 #include "../states/CharacterState.h"
+#include "../states/IdleState.h"
 #include <utility>
 
 NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, int y):
@@ -12,7 +13,7 @@ NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, in
                 positionY_(y),
                 characterState_(nullptr){
                 // Character constructor with no args sets state to Idle
-    this->characterState_ = new Character();
+    this->characterState_ = new IdleState();
 }
 
 
@@ -31,15 +32,18 @@ int NPCObject::getHitChance() const {
 }
 
 void NPCObject::setState(CharacterState* newState) {
-    this->characterState_->setState(newState);
+    if (this->characterState_ != nullptr){
+        delete characterState_;
+    }
+    this->characterState_ = newState;
 }
 
 CharacterState* NPCObject::getCurrentState() const {
-    return this->characterState_->getCurrentState();
+    return this->characterState_;
 }
 
 CharacterState* NPCObject::getPreviousState() const {
-    return this->characterState_->getPreviousState();
+    return this->characterState_;
 }
 
 

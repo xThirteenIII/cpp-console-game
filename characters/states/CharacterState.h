@@ -1,7 +1,7 @@
 #ifndef _CHARACTERSTATE_H_
 #define _CHARACTERSTATE_H_
 
-class Character;
+class AbstractEntity;
 
 class CharacterState{
     public:
@@ -11,7 +11,7 @@ class CharacterState{
         virtual ~CharacterState() = default;
 
         virtual void enter() = 0;
-        virtual void update(Character* character) = 0;
+        virtual void update() = 0;
         virtual void exit() = 0;
 };
 #endif

@@ -18,9 +18,9 @@ class AbstractEntity{
         virtual int getArmorPoints() const = 0;
         virtual int getAttackPoints() const = 0;
         virtual int getHitChance() const = 0;
+        virtual void setState(CharacterState* newState) = 0;
         virtual CharacterState* getCurrentState() const = 0;
         virtual CharacterState* getPreviousState() const = 0;
-        virtual void setState(CharacterState* newState) = 0;
         virtual std::pair<int, int> getPosition() const = 0;
         virtual void move(int deltaX, int deltaY) = 0;
         

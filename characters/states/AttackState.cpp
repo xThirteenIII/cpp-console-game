@@ -1,11 +1,12 @@
+#include "../factory/AbstractEntity.h"
 #include "AttackState.h"
-#include "Character.h"
+#include "CharacterState.h"
 
 void AttackState::enter(){
 
 }
 
-void AttackState::update(Character* character){
+void AttackState::update(){
 
 }
 

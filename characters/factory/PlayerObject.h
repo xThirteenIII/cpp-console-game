@@ -1,7 +1,7 @@
 #ifndef _PLAYEROBJECT_H_
 #define _PLAYEROBJECT_H_
 #include "AbstractEntity.h"
-#include "../states/Character.h"
+#include "../states/CharacterState.h"
 #include <utility>
 
 class PlayerObject : public AbstractEntity{
@@ -12,7 +12,7 @@ class PlayerObject : public AbstractEntity{
         int hitChance_;
         int positionX_; 
         int positionY_; 
-        Character* characterState_;
+        CharacterState* characterState_;
 
     public:
         PlayerObject(int health, int armor, int attack, int precision, int x, int y);

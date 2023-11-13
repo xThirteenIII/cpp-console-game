@@ -28,16 +28,18 @@ int PlayerObject::getHitChance() const {
 }
 
 void PlayerObject::setState(CharacterState* newState) {
-    this->characterState_->setState(newState);
+    if (this->characterState_ != nullptr){
+        delete characterState_;
+    }
+    this->characterState_ = newState;
 }
 
-
 CharacterState* PlayerObject::getCurrentState() const {
-    return this->characterState_->getCurrentState();
+    return this->characterState_;
 }
 
 CharacterState* PlayerObject::getPreviousState() const {
-    return this->characterState_->getPreviousState();
+    return this->characterState_;
 }
 
 std::pair<int, int> PlayerObject::getPosition() const {
