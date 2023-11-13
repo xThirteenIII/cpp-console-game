@@ -20,5 +20,6 @@ class Context{
 
         // The run method enters, updates, and exits the current state in the game loop.
         void runGameLoop();
+        void runCombatLoop();
 };
 #endif

@@ -1,5 +1,6 @@
 #include "GameRunningState.h"
 #include "PauseState.h"
+#include "CombatState.h"
 #include "../GameManager.h"
 #include "Context.h"
 #include "MapHandler.h"
@@ -50,6 +51,11 @@ void GameRunningState::update(Context* context){
         }
     }
     mapHandler->renderMap();
+
+    // If player reaches enemy, start combat state.
+    if (GameManager::GetInstance()->getPlayer()->getPosition() == GameManager::GetInstance()->getNPC()->getPosition()){
+        context->setState(new CombatState());
+    }
 }
 
 void GameRunningState::exit(){

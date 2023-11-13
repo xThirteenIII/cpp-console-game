@@ -30,14 +30,21 @@ void GameOverState::update(Context* context){
     if (GameManager::GetInstance()->getInputKey() != ERR){
         switch (GameManager::GetInstance()->getInputKey()) {
             case '\n':
+
+                // Player selected "Retry"
                 if (selectedItem == 0){
                     // TODO: Game Has to reset, this is not correct
                     context->setState(new GameRunningState());
                 }else if (selectedItem == 1){
 
+                    // Player selected "Main Menu"
                     // Reset game and go to main menu
                     GameManager::GetInstance()->resetGame(); 
                     context->setState(new MainMenuState());
+                }else if (selectedItem == 2){
+
+                    // Player selected "Quit Game"
+                    context->setState(new QuitGameState());
                 }
                 break;
             default:

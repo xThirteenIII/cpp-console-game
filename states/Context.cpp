@@ -83,7 +83,6 @@ void Context::runGameLoop(){
         // This must be the only place where to read the input, otherwise it gets latency when pressing 
         // keys 
         gameManager->readInputKey();
-
         
         // This is needed to clear the screen only if we switch to a different state
         this->previousState_ = this->currentState_;

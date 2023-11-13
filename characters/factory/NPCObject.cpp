@@ -54,6 +54,10 @@ std::pair<int, int> NPCObject::getPosition() const {
     return position;
 }
 
+bool NPCObject::isAlive() const{
+    return healthPoints_ > 0;
+}
+
 
 void NPCObject::move(int deltaX, int deltaY){
 

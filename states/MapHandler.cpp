@@ -113,11 +113,19 @@ void MapHandler::renderMap(){
     int gameBoyStartY = 9;
     GameManager* gameManager = GameManager::GetInstance();
 
-    // Update player position
+    // Update player icon
     currentMap_[gameManager->getPlayer()->getPosition().first][gameManager->getPlayer()->getPosition().second]='P';
 
-    // Update Enemy position
-    currentMap_[gameManager->getNPC()->getPosition().first][gameManager->getNPC()->getPosition().second]='E';
+    // Update enemy icon if enemey is still alive
+    if (gameManager->getNPC()->getHealthPoints() > 0){
+        currentMap_[gameManager->getNPC()->getPosition().first][gameManager->getNPC()->getPosition().second]='E';
+    }
+
+    // Update fighting icon
+    if (gameManager->getPlayer()->getPosition() == gameManager->getNPC()->getPosition()){
+        currentMap_[gameManager->getPlayer()->getPosition().first][gameManager->getPlayer()->getPosition().second]='X';
+    }
+
 
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < columns_; j++) {

@@ -25,5 +25,6 @@ class NPCObject : public AbstractEntity{
         CharacterState* getPreviousState() const override;
         std::pair<int, int> getPosition() const override;
         void move(int deltaX, int deltaY) override;
+        bool isAlive() const override;
 };
 #endif

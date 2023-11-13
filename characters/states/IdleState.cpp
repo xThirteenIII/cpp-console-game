@@ -11,10 +11,6 @@ void IdleState::enter(){
 // player starts first attacking.
 void IdleState::update(){
     
-    GameManager* gameManager = GameManager::GetInstance();    
-    if (gameManager->getPlayer()->getPosition() == gameManager->getNPC()->getPosition()){
-        gameManager->getPlayer()->setState(new AttackState());
-    }
 }
 
 void IdleState::exit(){

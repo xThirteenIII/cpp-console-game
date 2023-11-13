@@ -48,6 +48,10 @@ std::pair<int, int> PlayerObject::getPosition() const {
     return position;
 }
 
+bool PlayerObject::isAlive() const{
+    return healthPoints_ > 0;
+}
+
 void PlayerObject::move(int deltaX, int deltaY){
 
     int boundX = GameManager::GetInstance()->getSetting("W_HEIGHT");
