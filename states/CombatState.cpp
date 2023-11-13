@@ -36,16 +36,20 @@ void CombatState::enter(){
 
 void CombatState::update(Context* context){
 
-    if (GameManager::GetInstance()->getPlayer()->)<=0){
+    AbstractEntity* player = GameManager::GetInstance()->getPlayer();
+    AbstractEntity* enemyNPC = GameManager::GetInstance()->getNPC();
+
+
+    if (!(player->isAlive())){
 
         // Player is KO
         context->setState(new GameOverState());
         return;
-    }else if (GameManager::GetInstance()->getNPC()->getHealthPoints()<=0){
+    }else if (!(enemyNPC->isAlive())){
         
         // For now, kill the enemy and win.
         // Player has defeated the enemy, return to map
-        context->setState(new PlayerWinsState());
+        context->setState(new GameRunningState());
         return;
     }
 
@@ -60,7 +64,6 @@ void CombatState::update(Context* context){
 
                 // User selected base attack
                 if (selectedItem == 0){
-                    GameManager::GetInstance()->getPlayer()->
                     
                 }else if (selectedItem == 1){
                 // User selected special attack

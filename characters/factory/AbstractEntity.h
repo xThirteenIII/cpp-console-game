@@ -3,6 +3,7 @@
 
 #include <utility>
 #include "../states/CharacterState.h"
+#include "../../combat/Attack.h"
 
 class AbstractEntity{
     public:
@@ -16,14 +17,16 @@ class AbstractEntity{
         // Coommon methods between entities
         virtual int getHealthPoints() const = 0;
         virtual int getArmorPoints() const = 0;
-        virtual int getAttackPoints() const = 0;
-        virtual int getHitChance() const = 0;
-        virtual void setState(CharacterState* newState) = 0;
+        virtual Attack* getCurrentAttack() const = 0;
         virtual CharacterState* getCurrentState() const = 0;
         virtual CharacterState* getPreviousState() const = 0;
         virtual std::pair<int, int> getPosition() const = 0;
+        virtual void setAttackType(AttackType type);
+        virtual void addAttack(const Attack* attack);
+
+        virtual void setState(CharacterState* newState) = 0;
         virtual void move(int deltaX, int deltaY) = 0;
-        virtual bool isAlive() = 0;
+        virtual bool isAlive() const = 0;
         
         /** 
          * std::pair is defined as follows:

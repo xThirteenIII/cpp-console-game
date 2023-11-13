@@ -6,9 +6,6 @@
 #include <mutex>
 #include <string>
 
-    // These allow to access Player and Enemy stats
-    AbstractEntity* getPlayer();
-    AbstractEntity* getNPC();
 // GameManager class will manage global game settings and keep track of the game's current state.
 // It is designed like a Singleton to ensure that there's only one instance throughout the game.
 // Thread-safe version including mutex.
@@ -31,6 +28,8 @@ private:
    // These allow to access player and enemies info like stats and position
    AbstractEntity* player_;
    AbstractEntity* npc_;
+
+   int currentTurn;
 
    // Constructor
    GameManager();
@@ -60,31 +59,33 @@ public:
     // mapHandler getter
     MapHandler* getMapHandler();
 
+    // Initialize game settings and other necessary components
+    void initialize();
+
+    int getCurrentTurn();
+
     // These allow to access Player and Enemy stats
     AbstractEntity* getPlayer();
     AbstractEntity* getNPC();
+
+    // inputKey_ getter
+    int getInputKey();
+
+    // Get a game setting
+    int getSetting(const std::string& key);
 
     // These allow to set Player and Enemy stats
     void setPlayer(AbstractEntity* player);
     void setNPC(AbstractEntity* npc);
 
-    // readInput stores the user input in the inputKey_ private variable
-    void readInputKey();
-
-    // inputKey_ getter
-    int getInputKey();
-
-    // Initialize game settings and other necessary components
-    void initialize();
-
-    // Implement game loop, where you switch between game states.
-    void runGameLoop();
-
     // Set a game setting
     void setSetting(const std::string& key, const int& value);
 
-    // Get a game setting
-    int getSetting(const std::string& key);
+    // readInput stores the user input in the inputKey_ private variable
+    void readInputKey();
+
+    // Implement game loop, where you switch between game states.
+    void runGameLoop();
 
     // This is called when the game is over or if the player goes to main menu and starts a new game
     // It deletes player and npc objects and resets map

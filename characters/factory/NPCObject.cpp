@@ -2,17 +2,17 @@
 #include "../../GameManager.h"
 #include "../states/CharacterState.h"
 #include "../states/IdleState.h"
+#include "../../combat/Attack.h"
 #include <utility>
 
 NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, int y):
                 healthPoints_(health),
                 armorPoints_(armor),
-                attackPoints_(attack),
-                hitChance_(precision),
                 positionX_(x),
                 positionY_(y),
                 characterState_(nullptr){
-                // Character constructor with no args sets state to Idle
+
+    // Character constructor with no args sets state to Idle
     this->characterState_ = new IdleState();
 }
 
@@ -23,13 +23,12 @@ int NPCObject::getHealthPoints() const {
 int NPCObject::getArmorPoints() const {
     return armorPoints_;
 }
-int NPCObject::getAttackPoints() const {
-    return attackPoints_;
 
+void NPCObject::setAttackType(AttackType type){
+    this->attack
 }
-int NPCObject::getHitChance() const {
-    return hitChance_;
-}
+
+
 
 void NPCObject::setState(CharacterState* newState) {
     if (this->characterState_ != nullptr){

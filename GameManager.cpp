@@ -22,9 +22,16 @@ GameManager* GameManager::instance_=nullptr;
 std::mutex GameManager::mutex_;
 
 void GameManager::initialize(){
+
+    this->currentTurn = 0;
+
     // Initialize Map
     mapHandler_ = new MapHandler(GameManager::GetInstance()->getSetting("W_HEIGHT"), GameManager::GetInstance()->getSetting("W_WIDTH"), nullptr);
     //mapHandler_->initialize() is run by the SelectClassState::update() method
+}
+
+int GameManager::getCurrentTurn(){
+    return this->currentTurn;
 }
 
 void GameManager::runGameLoop(){

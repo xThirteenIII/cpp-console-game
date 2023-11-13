@@ -20,10 +20,10 @@ class PlayerObject : public AbstractEntity{
         int getArmorPoints() const override;
         int getAttackPoints() const override;
         int getHitChance() const override;
-        void setState(CharacterState* newState) override;
         CharacterState* getCurrentState() const override;
         CharacterState* getPreviousState() const override;
         std::pair<int, int> getPosition() const override;
+        void setState(CharacterState* newState) override;
         void move(int deltaX, int deltaY) override;
         bool isAlive() const;
     
