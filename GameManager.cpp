@@ -25,6 +25,38 @@ void GameManager::initialize(){
 
     this->currentTurn = 0;
 
+    this->gameBoyArt_ = R"(
+       ______________________________
+       | oON                          |
+       | .--------------------------. |
+       | |  .--------------------.  | |
+       | |  |                    |  | |
+       | |))|                    |  | |
+       | |  |                    |  | |
+       | |  |                    |  | |
+       | |  |                    |  | |
+       | |  |                    |  | |
+       | |  |                    |  | |
+       | |  |                    |  | |
+       | |  |                    |  | |
+       | |  |                    |  | |
+       | |  '--------------------'  | |
+       | |__GAME BOY________________/ |
+       |               ________       |
+       |    .            (13)         |
+       |  _| |_        """"""""  .-.  |
+       |-[_   _]-           .-. (   ) |
+       |   |_|             (   ) '-'  |
+       |    '               '-'   A   |
+       |                     B        |
+       |              ___   ___       |
+       |             (___) (___)  ,., |
+       |            select start ;:;: |
+       |                        ,;:;' /
+       |                       ,:;:'.'
+       '---------------------------`
+    )";
+
     // Initialize Map
     mapHandler_ = new MapHandler(GameManager::GetInstance()->getSetting("W_HEIGHT"), GameManager::GetInstance()->getSetting("W_WIDTH"), nullptr);
     //mapHandler_->initialize() is run by the SelectClassState::update() method
@@ -32,6 +64,14 @@ void GameManager::initialize(){
 
 int GameManager::getCurrentTurn(){
     return this->currentTurn;
+}
+
+const char* GameManager::getGameBoyArt() const{
+    return this->gameBoyArt_;
+}
+
+void GameManager::toNextTurn(){
+    this->currentTurn++;
 }
 
 void GameManager::runGameLoop(){

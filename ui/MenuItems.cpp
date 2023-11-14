@@ -40,47 +40,19 @@ int MenuItems::getSelected(){
 
 void MenuItems::display() const{
 // Ignore error due to older c++ standard
-const char* gameBoyArt = R"(
-    ______________________________
-   | oON                          |
-   | .--------------------------. |
-   | |  .--------------------.  | |
-   | |  |                    |  | |
-   | |))|                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  '--------------------'  | |
-   | |__GAME BOY________________/ |
-   |               ________       |
-   |    .            (13)         |
-   |  _| |_        """"""""  .-.  |
-   |-[_   _]-           .-. (   ) |
-   |   |_|             (   ) '-'  |
-   |    '               '-'   A   |
-   |                     B        |
-   |              ___   ___       |
-   |             (___) (___)  ,., |
-   |            select start ;:;: |
-   |                        ,;:;' /
-   |                       ,:;:'.'
-   '---------------------------`
-)";
     
-    mvprintw(0,0,"%s", gameBoyArt);
+    mvprintw(0,0,"%s", GameManager::GetInstance()->getGameBoyArt());
+    int gameBoyScreenX = GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X");
+    int gameBoyScreenY = GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y");
             
     for (size_t i=0; i < items_.size(); i++){
         if (static_cast<int>(i) == this->selectedItem_){
             // Highlight selected item
             // TODO: create a method in NcursesAdapter that handles this mvprintw
-            mvprintw(5+i, 9, ">> %s", items_[i].c_str());
+            // Why did it go from 9 to 13 when i declared gameBoyArt as a pvt field in GameManager class???
+            mvprintw(gameBoyScreenX+i, gameBoyScreenY, ">> %s", items_[i].c_str());
         } else {
-            mvprintw(5+i, 9, "   %s", items_[i].c_str());
+            mvprintw(gameBoyScreenX+i, gameBoyScreenY, "   %s", items_[i].c_str());
         }
     }
     

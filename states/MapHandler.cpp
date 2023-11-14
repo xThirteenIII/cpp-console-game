@@ -17,39 +17,6 @@
 #include <conio.h>
 #endif
 
-// Ignore error due to older c++ standard
-const char* gameBoyArt = R"(
-    ______________________________
-   | oON                          |
-   | .--------------------------. |
-   | |  .--------------------.  | |
-   | |  |                    |  | |
-   | |))|                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  |                    |  | |
-   | |  '--------------------'  | |
-   | |__GAME BOY________________/ |
-   |               ________       |
-   |    .            (13)         |
-   |  _| |_        """"""""  .-.  |
-   |-[_   _]-           .-. (   ) |
-   |   |_|             (   ) '-'  |
-   |    '               '-'   A   |
-   |                     B        |
-   |              ___   ___       |
-   |             (___) (___)  ,., |
-   |            select start ;:;: |
-   |                        ,;:;' /
-   |                       ,:;:'.'
-   '---------------------------`
-)";
-
 // Default constructor
 MapHandler::MapHandler():rows_(20), columns_(10), renderer_(nullptr){
 
@@ -108,9 +75,9 @@ void MapHandler::update(GameState* currentState, GameState* previousState){
 }
 
 void MapHandler::renderMap(){
-    mvprintw(0,0,"%s", gameBoyArt);
-    int gameBoyStartX = 5;
-    int gameBoyStartY = 9;
+    mvprintw(0,0,"%s", GameManager::GetInstance()->getGameBoyArt());
+    int gameBoyStartX = GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X");
+    int gameBoyStartY = GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y");
     GameManager* gameManager = GameManager::GetInstance();
 
     // Update player icon

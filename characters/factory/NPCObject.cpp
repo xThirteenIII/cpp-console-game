@@ -13,19 +13,10 @@ NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, in
                 armorPoints_(armor),
                 positionX_(x),
                 positionY_(y),
-                // attacks_ automatically initialized as empty vector,
-                currentAttack_(nullptr),
-                characterState_(nullptr){
+                currentAttack_((new Attack(AttackType::BASIC, 3, 100), new Attack(AttackType::SPECIAL, 6, 85))),
+                characterState_(new IdleState()){
 
 
-    // Add Basic and Special Attacks to the list
-    this->addAttack(new Attack{AttackType::BASIC, attack, precision});
-    this->addAttack(new Attack{AttackType::SPECIAL, attack, precision});
-
-    // Default attack is basic
-    this->setAttackType(AttackType::BASIC);
-
-    this->characterState_ = new IdleState();
 }
 
 
@@ -43,7 +34,14 @@ void NPCObject::addAttack(Attack* attack){
 }
 
 void NPCObject::setAttackType(AttackType attackType){
-    this->currentAttack_->type = attackType;
+
+    // Search for specific attackType in attacks_ vector and set the corresponding attack as current
+    // if found.
+    for (size_t i; i<this->attacks_.size(); i++){
+        if (attacks_.at(static_cast<int>(i))->type == attackType){
+            this->currentAttack_ = attacks_.at(static_cast<int>(i));
+        }
+    }
 }
 
 

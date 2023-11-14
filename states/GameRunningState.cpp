@@ -50,6 +50,7 @@ void GameRunningState::update(Context* context){
                 break;
         }
     }
+
     mapHandler->renderMap();
 
     // If player reaches enemy, start combat state.

@@ -3,11 +3,8 @@
 #include "AttackState.h"
 #include "CharacterState.h"
 
-void AttackState::enter(){
-    GameManager* gameManager = GameManager::GetInstance();
-    AbstractEntity* player = gameManager->getPlayer();
-    AbstractEntity* enemyNPC = gameManager->getNPC();
-    
+void AttackState::enter(){    
+
 }
 
 void AttackState::update(){

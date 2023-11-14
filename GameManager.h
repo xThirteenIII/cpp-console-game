@@ -31,6 +31,8 @@ private:
 
    int currentTurn;
 
+   const char* gameBoyArt_;
+
    // Constructor
    GameManager();
 
@@ -63,6 +65,9 @@ public:
     void initialize();
 
     int getCurrentTurn();
+    void toNextTurn();
+
+    const char* getGameBoyArt() const;
 
     // These allow to access Player and Enemy stats
     AbstractEntity* getPlayer();

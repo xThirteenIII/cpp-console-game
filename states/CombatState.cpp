@@ -20,7 +20,6 @@
 CombatState::CombatState(){
     CreateMenu* combatMenu = new CombatMenu();
     menu_ = combatMenu->createMenu();
-
 }
 
 void CombatState::enter(){
@@ -39,6 +38,9 @@ void CombatState::enter(){
     if (dynamic_cast<AttackState*>(GameManager::GetInstance()->getPlayer()->getCurrentState())){
             menu_->display();
         }
+
+    // Call enter() method of the current character state
+    GameManager::GetInstance()->getPlayer()->getCurrentState()->enter();
 }
 
 void CombatState::update(Context* context){
@@ -55,7 +57,7 @@ void CombatState::update(Context* context){
         
         // For now, kill the enemy and win.
         // Player has defeated the enemy, return to map
-        context->setState(new GameRunningState());
+        context->setState(new VictoryState());
         return;
     }
 
@@ -72,6 +74,7 @@ void CombatState::update(Context* context){
                     if (selectedItem == 0){
                         player->setAttackType(AttackType::BASIC);
                         player->performAttack(enemyNPC);
+
                     }else if (selectedItem == 1){
                         player->setAttackType(AttackType::SPECIAL);
                         player->performAttack(enemyNPC);
@@ -84,7 +87,10 @@ void CombatState::update(Context* context){
         }
     }
 
+    GameManager::GetInstance()->getPlayer()->getCurrentState()->update();
 }
 
 void CombatState::exit(){
+    GameManager::GetInstance()->toNextTurn();
+    GameManager::GetInstance()->getPlayer()->getCurrentState()->exit();
 }

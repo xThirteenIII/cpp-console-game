@@ -16,7 +16,6 @@
 GameOverState::GameOverState(){
     CreateMenu* gameOverMenu = new GameOverMenu();
     menu_ = gameOverMenu->createMenu();
-
 }
 
 void GameOverState::enter(){
@@ -34,6 +33,7 @@ void GameOverState::update(Context* context){
                 // Player selected "Retry"
                 if (selectedItem == 0){
                     // TODO: Game Has to reset, this is not correct
+                    GameManager::GetInstance()->resetGame(); 
                     context->setState(new GameRunningState());
                 }else if (selectedItem == 1){
 

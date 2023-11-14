@@ -21,6 +21,11 @@ int main(){
     gameManager->setSetting("W_HEIGHT", 10);
     gameManager->setSetting("W_WIDTH", 20);
 
+    // This is the pixel from which we start rendering maps and menus
+    // which corresponds exactly with gameboy screen
+    gameManager->setSetting("GAMEBOYSCREEN_X", 5);
+    gameManager->setSetting("GAMEBOYSCREEN_Y", 13);
+
     // Run initialization for various game components, like renderers
     gameManager->initialize();
 

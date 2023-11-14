@@ -1,26 +1,19 @@
 #include "PlayerObject.h"
 #include "../../GameManager.h"
 #include "../states/IdleState.h"
+#include "../../combat/Attack.h"
 #include <random>
 #include <utility>
+#include <vector>
 
 PlayerObject::PlayerObject(int health, int armor, int attack, int precision, int x, int y):
                 healthPoints_(health),
                 armorPoints_(armor),
-                positionY_(y),
                 positionX_(x),
-                currentAttack_(nullptr),
-                characterState_(nullptr){
+                positionY_(y),
+                currentAttack_((new Attack(AttackType::BASIC, 5, 100), new Attack(AttackType::SPECIAL, 8, 85))),
+                characterState_(new IdleState()){
 
-    // Add Basic and Special Attacks to the list
-    this->addAttack(new Attack{AttackType::BASIC, attack, precision});
-    this->addAttack(new Attack{AttackType::SPECIAL, attack, precision});
-
-    // Default attack is basic
-    this->setAttackType(AttackType::BASIC);
-
-    // Character constructor with no args sets state to Idle
-    this->characterState_ = new IdleState();
 }
 
 void PlayerObject::addAttack(Attack* attack){
@@ -30,7 +23,11 @@ void PlayerObject::addAttack(Attack* attack){
 }
 
 void PlayerObject::setAttackType(AttackType attackType){
-    this->currentAttack_->type = attackType;
+    for (size_t i; i<this->attacks_.size(); i++){
+        if (attacks_.at(static_cast<int>(i))->type == attackType){
+            this->currentAttack_ = attacks_.at(static_cast<int>(i));
+        }
+    }
 }
 
 int PlayerObject::getHealthPoints() const {
