@@ -7,6 +7,6 @@
 AbstractMenu* GameOverMenu::createMenu(){
 
     // Ignore error due to older c++ standard
-    std::vector<std::string> items = {"Retry", "Main Menu", "Quit Game"};
+    std::vector<std::string> items = {"Retry", "Quit Game"};
     return new MenuItems(items);
 }

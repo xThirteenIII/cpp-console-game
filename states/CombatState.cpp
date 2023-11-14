@@ -85,12 +85,14 @@ void CombatState::update(Context* context){
                     break;
             }
         }
+    }else{
+        enemyNPC->setAttackType(AttackType::BASIC);
+        enemyNPC->performAttack(player);
     }
 
     GameManager::GetInstance()->getPlayer()->getCurrentState()->update();
 }
 
 void CombatState::exit(){
-    GameManager::GetInstance()->toNextTurn();
     GameManager::GetInstance()->getPlayer()->getCurrentState()->exit();
 }

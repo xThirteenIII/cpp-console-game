@@ -85,8 +85,10 @@ void NPCObject::performAttack(AbstractEntity* entity){
         // Entity is the player since the NPC attacks the player only for now
         entity->takeDamage(this->currentAttack_->damage);
     }else{
-        // attack missed screen
+        // Attack missed
     }
+    GameManager::GetInstance()->toNextTurn();
+
 }
 
 
