@@ -69,6 +69,13 @@ void Context::runGameLoop(){
 
     // Get game istance
     GameManager* gameManager = GameManager::GetInstance();
+    AbstractEntity* player = gameManager->getPlayer();
+    AbstractEntity* enemyNPC = gameManager->getNPC();
+
+    // Set default attacks for both player and enemy
+    // Is it ok to do it here or is there a better place?
+
+
 
     // Get map istance
     MapHandler* mapHandler = gameManager->getMapHandler();

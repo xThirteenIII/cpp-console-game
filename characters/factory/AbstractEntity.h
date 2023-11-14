@@ -22,7 +22,13 @@ class AbstractEntity{
         virtual CharacterState* getPreviousState() const = 0;
         virtual std::pair<int, int> getPosition() const = 0;
         virtual void setAttackType(AttackType type);
-        virtual void addAttack(const Attack* attack);
+        virtual void addAttack(Attack* attack);
+
+        virtual void takeDamage(int damage);
+
+        // Attack is not passed as parameter since it's changed based on the 
+        // user selection
+        virtual void performAttack(AbstractEntity* entity);
 
         virtual void setState(CharacterState* newState) = 0;
         virtual void move(int deltaX, int deltaY) = 0;

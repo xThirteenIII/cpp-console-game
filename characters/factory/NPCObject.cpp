@@ -3,16 +3,28 @@
 #include "../states/CharacterState.h"
 #include "../states/IdleState.h"
 #include "../../combat/Attack.h"
+#include <algorithm>
+#include <random>
 #include <utility>
+#include <vector>
 
 NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, int y):
                 healthPoints_(health),
                 armorPoints_(armor),
                 positionX_(x),
                 positionY_(y),
+                // attacks_ automatically initialized as empty vector,
+                currentAttack_(nullptr),
                 characterState_(nullptr){
 
-    // Character constructor with no args sets state to Idle
+
+    // Add Basic and Special Attacks to the list
+    this->addAttack(new Attack{AttackType::BASIC, attack, precision});
+    this->addAttack(new Attack{AttackType::SPECIAL, attack, precision});
+
+    // Default attack is basic
+    this->setAttackType(AttackType::BASIC);
+
     this->characterState_ = new IdleState();
 }
 
@@ -24,10 +36,15 @@ int NPCObject::getArmorPoints() const {
     return armorPoints_;
 }
 
-void NPCObject::setAttackType(AttackType type){
-    this->attack
+void NPCObject::addAttack(Attack* attack){
+
+    // No validate on attack for now
+    this->attacks_.push_back(attack);
 }
 
+void NPCObject::setAttackType(AttackType attackType){
+    this->currentAttack_->type = attackType;
+}
 
 
 void NPCObject::setState(CharacterState* newState) {
@@ -37,12 +54,41 @@ void NPCObject::setState(CharacterState* newState) {
     this->characterState_ = newState;
 }
 
+Attack* NPCObject::getCurrentAttack() const{
+    return this->currentAttack_;
+}
+
 CharacterState* NPCObject::getCurrentState() const {
     return this->characterState_;
 }
 
 CharacterState* NPCObject::getPreviousState() const {
     return this->characterState_;
+}
+
+void NPCObject::takeDamage(int damage){
+    this->healthPoints_ -= damage;
+}
+
+void NPCObject::performAttack(AbstractEntity* entity){
+    
+    // Enemy attacks with this->Attack.damage and the attack hits
+    // based on the hit chance of the attack
+    //
+    // Generate a random number between 0 and 100
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0, 100);
+    int randomValue = dis(gen);
+
+    // If the number is within the hitChance, the attacks hits
+    // Otherwise it fails
+    if (randomValue <= this->currentAttack_->hitChance){
+        // Entity is the player since the NPC attacks the player only for now
+        entity->takeDamage(this->currentAttack_->damage);
+    }else{
+        // attack missed screen
+    }
 }
 
 

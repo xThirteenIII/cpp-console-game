@@ -133,6 +133,7 @@ void GameManager::setNPC(AbstractEntity* npc){
 }
 
 void GameManager::resetGame(){
+    this->currentTurn = 0;
     this->mapHandler_->initializeMap();
     delete this->player_;
     delete this->npc_;

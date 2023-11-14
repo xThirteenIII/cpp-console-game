@@ -4,6 +4,7 @@
 #include "../states/CharacterState.h"
 #include "../../combat/Attack.h"
 #include <utility>
+#include <vector>
 
 class NPCObject : public AbstractEntity{
     private:
@@ -11,7 +12,8 @@ class NPCObject : public AbstractEntity{
         int armorPoints_;
         int positionX_; 
         int positionY_; 
-        Attack* attack;
+        std::vector<Attack*> attacks_;
+        Attack* currentAttack_;
         CharacterState* characterState_;
 
     public:
@@ -20,11 +22,14 @@ class NPCObject : public AbstractEntity{
         int getArmorPoints() const override;
         Attack* getCurrentAttack() const override;
         void setAttackType(AttackType type) override;
-        void addAttack(const Attack* attack) override;
+        void addAttack(Attack* attack) override;
         void setState(CharacterState* newState) override;
         CharacterState* getCurrentState() const override;
         CharacterState* getPreviousState() const override;
         std::pair<int, int> getPosition() const override;
+
+        void takeDamage(int damage) override;
+        void performAttack(AbstractEntity* entity) override;
         void move(int deltaX, int deltaY) override;
         bool isAlive() const override;
 };
