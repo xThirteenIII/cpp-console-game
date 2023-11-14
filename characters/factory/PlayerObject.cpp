@@ -2,9 +2,16 @@
 #include "../../GameManager.h"
 #include "../states/IdleState.h"
 #include "../../combat/Attack.h"
+#include <curses.h>
 #include <random>
+#include <string>
+#include <thread>
 #include <utility>
 #include <vector>
+
+#ifndef _WIN32
+#include <ncurses.h>
+#endif
 
 PlayerObject::PlayerObject(int health, int armor, int attack, int precision, int x, int y):
                 healthPoints_(health),
@@ -23,6 +30,7 @@ void PlayerObject::addAttack(Attack* attack){
 }
 
 void PlayerObject::setAttackType(AttackType attackType){
+
     for (size_t i; i<this->attacks_.size(); i++){
         if (attacks_.at(static_cast<int>(i))->type == attackType){
             this->currentAttack_ = attacks_.at(static_cast<int>(i));
@@ -83,9 +91,17 @@ void PlayerObject::performAttack(AbstractEntity* entity){
     if (randomValue <= this->currentAttack_->hitChance){
         // Entity is the enemy NPC since the player can attack only NPCs
         entity->takeDamage(this->currentAttack_->damage);
+        mvprintw(
+                GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")+(GameManager::GetInstance()->getSetting("W_HEIGHT"))/2,
+                GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
+                ("Player hits for " + std::to_string(this->currentAttack_->damage)).c_str()
+                );
+                refresh();
+                std::this_thread::sleep_for(std::chrono::seconds(1));
     }else{
         // attack missed screen
     }
+    GameManager::GetInstance()->toNextTurn();
 }
 
 bool PlayerObject::isAlive() const{

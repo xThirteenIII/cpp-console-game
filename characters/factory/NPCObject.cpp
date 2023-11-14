@@ -5,6 +5,7 @@
 #include "../../combat/Attack.h"
 #include <algorithm>
 #include <random>
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -84,11 +85,17 @@ void NPCObject::performAttack(AbstractEntity* entity){
     if (randomValue <= this->currentAttack_->hitChance){
         // Entity is the player since the NPC attacks the player only for now
         entity->takeDamage(this->currentAttack_->damage);
+        mvprintw(
+                (GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")+GameManager::GetInstance()->getSetting("W_HEIGHT"))/2,
+                GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
+                ("Enemy hits for " + std::to_string(this->currentAttack_->damage)).c_str()
+                );
+                refresh();
+                std::this_thread::sleep_for(std::chrono::seconds(1));
     }else{
         // Attack missed
     }
     GameManager::GetInstance()->toNextTurn();
-
 }
 
 

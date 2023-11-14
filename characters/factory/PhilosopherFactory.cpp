@@ -6,7 +6,7 @@
 
 AbstractEntity* PhilosopherFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
-    return new PlayerObject(15, 8, 8, 90, 0, 0);
+    return new PlayerObject(25, 8, 8, 90, 0, 0);
 }
 
 AbstractEntity* PhilosopherFactory::createEnemy() const{
@@ -25,5 +25,5 @@ AbstractEntity* PhilosopherFactory::createEnemy() const{
 
 
     // Health, Armor, Attack, Precision, x, y
-    return new PlayerObject(8, 3, 5, 90, distributionX(gen), distributionY(gen));
+    return new PlayerObject(20, 3, 5, 90, distributionX(gen), distributionY(gen));
 }

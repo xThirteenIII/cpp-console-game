@@ -6,7 +6,7 @@
 
 AbstractEntity* EngineerFactory::createCharacter() const{
     // Health, Armor, Attack, Precision, x, y
-    return new PlayerObject(25, 15, 5, 90, 0, 0);
+    return new PlayerObject(40, 15, 5, 90, 0, 0);
 }
 
 AbstractEntity* EngineerFactory::createEnemy() const{
@@ -23,5 +23,5 @@ AbstractEntity* EngineerFactory::createEnemy() const{
     // Spawn enemy in the right half of the map
     std::uniform_int_distribution<int> distributionY(GameManager::GetInstance()->getSetting("W_WIDTH")/2, GameManager::GetInstance()->getSetting("W_WIDTH")-1);
 
-    return new PlayerObject(15, 5, 3, 90, distributionX(gen), distributionY(gen));
+    return new PlayerObject(30, 5, 3, 90, distributionX(gen), distributionY(gen));
 }

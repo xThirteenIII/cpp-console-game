@@ -14,6 +14,7 @@
 #include "QuitGameState.h"
 #include <iostream>
 #include <string>
+#include <thread>
 #include <vector>
 
 
@@ -74,12 +75,15 @@ void CombatState::update(Context* context){
                     if (selectedItem == 0){
                         player->setAttackType(AttackType::BASIC);
                         player->performAttack(enemyNPC);
+                        // Wait for a short duration (e.g., 1 second)
+                        // not optimal but for now is ok
 
                     }else if (selectedItem == 1){
                         player->setAttackType(AttackType::SPECIAL);
                         player->performAttack(enemyNPC);
                     // User selected special attack
                     }
+
                     break;
                 default:
                     break;
