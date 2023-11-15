@@ -35,14 +35,27 @@ Install with brew:
 
 run this on terminal:
 
-
 `sudo apt-get install libncurses5-dev libncursesw5-dev`
 
-### 2) Compile file from the cpp-console-game directory
+### 2) Install g++ compiler
 
-`g++ -Wall -std=c++20 -o game -I./states -I./renderer -I./characters -I./ui *.cpp ./states/*.cpp ./renderer/*.cpp ./ui/*.cpp ./characters/*/*.cpp -lncurses`
+check if g++ is already installed first with:
 
-### 3) Run from terminal
+`g++ --version`
+
+if it's not installed yet get developer tools:
+
+`sudo apt update`
+
+`sudo apt install build-essential`
+
+the above meta-package installs the number of packages including g++ automatically, gcc, and make.
+
+### 3) Compile file from the cpp-console-game directory
+
+`g++ -Wall -std=c++20 -o game -I./states -I./renderer -I./characters -I./ui -I./combat *.cpp ./states/*.cpp ./renderer/*.cpp ./ui/*.cpp ./characters/*/*.cpp ./combat/*.cpp -lncurses`
+
+### 4) Run from terminal
 
 `./game`
 
