@@ -5,7 +5,6 @@
 #include "../../combat/Attack.h"
 #include <algorithm>
 #include <random>
-#include <thread>
 #include <utility>
 #include <vector>
 
@@ -14,7 +13,7 @@ NPCObject::NPCObject(int health, int armor, int attack, int precision, int x, in
                 armorPoints_(armor),
                 positionX_(x),
                 positionY_(y),
-                currentAttack_((new Attack(AttackType::BASIC, 3, 100), new Attack(AttackType::SPECIAL, 6, 85))),
+                currentAttack_((new Attack(AttackType::BASIC, 3, 100))),
                 characterState_(new IdleState()){
 
 
@@ -38,7 +37,7 @@ void NPCObject::setAttackType(AttackType attackType){
 
     // Search for specific attackType in attacks_ vector and set the corresponding attack as current
     // if found.
-    for (size_t i; i<this->attacks_.size(); i++){
+    for (size_t i=0; i<this->attacks_.size(); i++){
         if (attacks_.at(static_cast<int>(i))->type == attackType){
             this->currentAttack_ = attacks_.at(static_cast<int>(i));
         }
@@ -86,12 +85,11 @@ void NPCObject::performAttack(AbstractEntity* entity){
         // Entity is the player since the NPC attacks the player only for now
         entity->takeDamage(this->currentAttack_->damage);
         mvprintw(
-                (GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")+GameManager::GetInstance()->getSetting("W_HEIGHT"))/2,
+                (GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")+(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)-1),
                 GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
                 ("Enemy hits for " + std::to_string(this->currentAttack_->damage)).c_str()
                 );
                 refresh();
-                std::this_thread::sleep_for(std::chrono::seconds(1));
     }else{
         // Attack missed
     }

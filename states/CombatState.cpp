@@ -40,6 +40,52 @@ void CombatState::enter(){
             menu_->display();
         }
 
+    // Print stats starting from half of the height of the gameboy screen
+    // Not cool but we deal with it like this for now
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2),
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
+            "--------------------");
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+1,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
+            "Player:");
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+2,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
+            ("HP: "+std::to_string(GameManager::GetInstance()->getPlayer()->getHealthPoints())).c_str());
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+3,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
+            ("AP: "+std::to_string(GameManager::GetInstance()->getPlayer()->getCurrentAttack()->damage)).c_str());
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+4,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
+            ("PR: "+std::to_string(GameManager::GetInstance()->getPlayer()->getCurrentAttack()->hitChance)).c_str());
+
+    // Print Enemy Stats starting from the center of the gamboy screen
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+1,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y")
+            +(GameManager::GetInstance()->getSetting("W_WIDTH")/2),
+            "| Enemy:");
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+2,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y")
+            +(GameManager::GetInstance()->getSetting("W_WIDTH")/2),
+            ("| HP: "+std::to_string(GameManager::GetInstance()->getNPC()->getHealthPoints())).c_str());
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+3,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y")
+            +(GameManager::GetInstance()->getSetting("W_WIDTH")/2),
+            ("| AP: "+std::to_string(GameManager::GetInstance()->getNPC()->getCurrentAttack()->damage)).c_str());
+    mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")
+            +(GameManager::GetInstance()->getSetting("W_HEIGHT")/2)+4,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y")
+            +(GameManager::GetInstance()->getSetting("W_WIDTH")/2),
+            ("| PR: "+std::to_string(GameManager::GetInstance()->getNPC()->getCurrentAttack()->hitChance)).c_str());
+
+
     // Call enter() method of the current character state
     GameManager::GetInstance()->getPlayer()->getCurrentState()->enter();
 }
@@ -48,6 +94,8 @@ void CombatState::update(Context* context){
 
     AbstractEntity* player = GameManager::GetInstance()->getPlayer();
     AbstractEntity* enemyNPC = GameManager::GetInstance()->getNPC();
+    //Default attack is BASIC for enemy
+    enemyNPC->setAttackType(AttackType::BASIC);
 
     if (!(player->isAlive())){
 
@@ -79,6 +127,9 @@ void CombatState::update(Context* context){
                         // not optimal but for now is ok
 
                     }else if (selectedItem == 1){
+
+                        // This doesn't seem to work. Why?
+                        player->addAttack(new Attack(AttackType::SPECIAL, 8, 85));
                         player->setAttackType(AttackType::SPECIAL);
                         player->performAttack(enemyNPC);
                     // User selected special attack
@@ -90,7 +141,6 @@ void CombatState::update(Context* context){
             }
         }
     }else{
-        enemyNPC->setAttackType(AttackType::BASIC);
         enemyNPC->performAttack(player);
     }
 

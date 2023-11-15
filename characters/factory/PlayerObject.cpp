@@ -5,7 +5,6 @@
 #include <curses.h>
 #include <random>
 #include <string>
-#include <thread>
 #include <utility>
 #include <vector>
 
@@ -18,7 +17,7 @@ PlayerObject::PlayerObject(int health, int armor, int attack, int precision, int
                 armorPoints_(armor),
                 positionX_(x),
                 positionY_(y),
-                currentAttack_((new Attack(AttackType::BASIC, 5, 100), new Attack(AttackType::SPECIAL, 8, 85))),
+                currentAttack_((new Attack(AttackType::BASIC, 5, 100))),
                 characterState_(new IdleState()){
 
 }
@@ -31,7 +30,7 @@ void PlayerObject::addAttack(Attack* attack){
 
 void PlayerObject::setAttackType(AttackType attackType){
 
-    for (size_t i; i<this->attacks_.size(); i++){
+    for (size_t i=0; i<this->attacks_.size(); i++){
         if (attacks_.at(static_cast<int>(i))->type == attackType){
             this->currentAttack_ = attacks_.at(static_cast<int>(i));
         }
@@ -92,12 +91,10 @@ void PlayerObject::performAttack(AbstractEntity* entity){
         // Entity is the enemy NPC since the player can attack only NPCs
         entity->takeDamage(this->currentAttack_->damage);
         mvprintw(
-                GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")+(GameManager::GetInstance()->getSetting("W_HEIGHT"))/2,
+                GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")+((GameManager::GetInstance()->getSetting("W_HEIGHT"))/2)-1,
                 GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y"),
                 ("Player hits for " + std::to_string(this->currentAttack_->damage)).c_str()
                 );
-                refresh();
-                std::this_thread::sleep_for(std::chrono::seconds(1));
     }else{
         // attack missed screen
     }

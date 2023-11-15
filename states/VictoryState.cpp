@@ -25,7 +25,7 @@ void VictoryState::enter(){
     // Print you won in middle of screen, bottom HALF
     // NOTE: gameboyscreen_x indicates the row -> counter intuitively is the height not the width
     mvprintw(GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_X")+(GameManager::GetInstance()->getSetting("W_HEIGHT")/2),
-            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y")+(GameManager::GetInstance()->getSetting("W_WIDTH")-(std::string("YOU WON").size()/2))/2,
+            GameManager::GetInstance()->getSetting("GAMEBOYSCREEN_Y")+(GameManager::GetInstance()->getSetting("W_WIDTH")-(std::string("YOU WON").size()))/2,
             "YOU WON");
 }
 void VictoryState::update(Context* context){

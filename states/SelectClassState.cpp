@@ -43,8 +43,9 @@ void SelectClassState::update(Context* context){
 
                     // Create Wizard player
                     EntityFactory* philosopherFactory = new PhilosopherFactory();
+                    EntityFactory* engineerFactory = new EngineerFactory();
                     GameManager::GetInstance()->setPlayer(philosopherFactory->createCharacter());
-                    GameManager::GetInstance()->setNPC(philosopherFactory->createEnemy());
+                    GameManager::GetInstance()->setNPC(engineerFactory->createEnemy());
                     context->setState(new GameRunningState());
                 }
                 break;
